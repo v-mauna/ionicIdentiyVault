@@ -5,7 +5,7 @@ import { logOut } from 'ionicons/icons';
 import AboutThisApp from '../components/AboutThisApp';
 
 const About: React.FC = () => {
-  const logout = () => {
+  const handleLogout = () => {
     console.log('logout clicked');
   };
 
@@ -15,7 +15,7 @@ const About: React.FC = () => {
         <IonToolbar color="primary">
           <IonTitle>About</IonTitle>
           <IonButtons slot="primary">
-            <IonButton icon-only onClick={logout}>
+            <IonButton icon-only onClick={handleLogout}>
               <IonIcon icon={logOut}></IonIcon>
             </IonButton>
           </IonButtons>
