@@ -1,0 +1,9 @@
+.error-message {
+  font-size: small;
+  color: var(--ion-color-danger);
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}

@@ -1,29 +1,65 @@
-import {
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar
-} from '@ionic/react';
-import { book, build, colorFill, grid, logOut } from 'ionicons/icons';
-import React from 'react';
-import './Tab1.css';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { logOut } from 'ionicons/icons';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 
+import TeaCategoryList from '../components/TeaCategoryList';
+import { TeaCategory } from '../models';
+
 const Home: React.FC = () => {
+  const [categories] = useState<Array<TeaCategory>>([
+    {
+      id: 1,
+      name: 'Green',
+      description:
+        'Green teas have the oxidation process stopped very early on, leaving them with a very subtle flavor and complex undertones. These teas should be steeped at lower temperatures for shorter periods of time.'
+    },
+    {
+      id: 2,
+      name: 'Black',
+      description:
+        'A fully oxidized tea, black teas have a dark color and a full robust and pronounced flavor. Blad teas tend to have a higher caffeine content than other teas.'
+    },
+    {
+      id: 3,
+      name: 'Herbal',
+      description:
+        'Herbal infusions are not actually "tea" but are more accurately characterized as infused beverages consisting of various dried herbs, spices, and fruits.'
+    },
+    {
+      id: 4,
+      name: 'Oolong',
+      description:
+        'Oolong teas are partially oxidized, giving them a flavor that is not as robust as black teas but also not as suble as green teas. Oolong teas often have a flowery fragrance.'
+    },
+    {
+      id: 5,
+      name: 'Dark',
+      description:
+        'From the Hunan and Sichuan provinces of China, dark teas are flavorful aged probiotic teas that steeps up very smooth with slightly sweet notes.'
+    },
+    {
+      id: 6,
+      name: 'Puer',
+      description:
+        'An aged black tea from china. Puer teas have a strong rich flavor that could be described as "woody" or "peaty."'
+    },
+    {
+      id: 7,
+      name: 'White',
+      description:
+        'White tea is produced using very young shoots with no oxidation process. White tea has an extremely delicate flavor that is sweet and fragrent. White tea should be steeped at lower temperatures for short periods of time.'
+    },
+    {
+      id: 8,
+      name: 'Yellow',
+      description:
+        'A rare tea from China, yellow tea goes through a similar shortened oxidation process like green teas. Yellow teas, however, do not have the grassy flavor that green teas tend to have. The leaves often resemble the shoots of white teas, but are slightly oxidized.'
+    }
+  ]);
   const history = useHistory();
+
+  const handleCategoryClick = (id: number) => history.push(`/tabs/home/edit-tea-category/${id}`);
 
   const handleLogout = () => history.push('/login');
 
@@ -31,7 +67,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Tea Categories</IonTitle>
           <IonButtons slot="primary">
             <IonButton icon-only onClick={handleLogout}>
               <IonIcon icon={logOut}></IonIcon>
@@ -39,42 +75,8 @@ const Home: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <IonCard className="welcome-card">
-          <img src="/assets/shapes.svg" alt="" />
-          <IonCardHeader>
-            <IonCardSubtitle>Get Started</IonCardSubtitle>
-            <IonCardTitle>Welcome to Ionic</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Now that your app has been created, you'll want to start building out features and
-              components. Check out some of the resources below for next steps.
-            </p>
-          </IonCardContent>
-        </IonCard>
-
-        <IonList lines="none">
-          <IonListHeader>
-            <IonLabel>Resources</IonLabel>
-          </IonListHeader>
-          <IonItem href="https://ionicframework.com/docs/" target="_blank">
-            <IonIcon slot="start" color="medium" icon={book} />
-            <IonLabel>Ionic Documentation</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/building/scaffolding" target="_blank">
-            <IonIcon slot="start" color="medium" icon={build} />
-            <IonLabel>Scaffold Out Your App</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/layout/structure" target="_blank">
-            <IonIcon slot="start" color="medium" icon={grid} />
-            <IonLabel>Change Your App Layout</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/theming/basics" target="_blank">
-            <IonIcon slot="start" color="medium" icon={colorFill} />
-            <IonLabel>Theme Your App</IonLabel>
-          </IonItem>
-        </IonList>
+      <IonContent className="ion-padding">
+        <TeaCategoryList categories={categories} onCategoryClick={handleCategoryClick}></TeaCategoryList>
       </IonContent>
     </IonPage>
   );

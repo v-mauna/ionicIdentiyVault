@@ -1,7 +1,13 @@
 import React from 'react';
 import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonTitle, IonContent } from '@ionic/react';
+import { RouteComponentProps } from 'react-router';
 
-const EditTeaCategory: React.FC = () => {
+interface EditTeaCategoryProps
+  extends RouteComponentProps<{
+    id: string;
+  }> {}
+
+const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
   return (
     <IonPage>
       <IonHeader>
@@ -12,8 +18,8 @@ const EditTeaCategory: React.FC = () => {
           <IonTitle>Edit Tea Category</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <p>Details</p>
+      <IonContent className="ion-padding">
+        <p>Here we would get category {match.params.id}, and then pass that off to the editor</p>
       </IonContent>
     </IonPage>
   );

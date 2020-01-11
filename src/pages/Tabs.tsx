@@ -5,14 +5,14 @@ import { home, informationCircle, switcher } from 'ionicons/icons';
 import Home from './Home';
 import About from './About';
 import Settings from './Settings';
-import Details from './EditTeaCategory';
+import EditTeaCategory from './EditTeaCategory';
 
 const Tabs: React.FC = () => (
   <IonTabs>
     <IonRouterOutlet>
       <Redirect exact path="/tabs" to="/tabs/home" />
       <Route path="/tabs/home" render={() => <Home />} exact={true} />
-      <Route path="/tabs/home/edit-tea-category" component={Details} />
+      <Route path="/tabs/home/edit-tea-category/:id" component={EditTeaCategory} />
       <Route path="/tabs/about" component={About} exact={true} />
       <Route path="/tabs/settings" component={Settings} />
     </IonRouterOutlet>
