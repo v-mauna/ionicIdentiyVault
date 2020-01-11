@@ -1,12 +1,15 @@
 import React from 'react';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { logOut } from 'ionicons/icons';
+import { useHistory } from 'react-router';
 
 import AboutThisApp from '../components/AboutThisApp';
 
 const About: React.FC = () => {
+  const history = useHistory();
+
   const handleLogout = () => {
-    console.log('logout clicked');
+    history.push('/login');
   };
 
   return (

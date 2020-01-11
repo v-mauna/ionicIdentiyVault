@@ -1,4 +1,6 @@
 import {
+  IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -15,16 +17,26 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/react';
-import { book, build, colorFill, grid } from 'ionicons/icons';
+import { book, build, colorFill, grid, logOut } from 'ionicons/icons';
 import React from 'react';
 import './Tab1.css';
+import { useHistory } from 'react-router';
 
 const Home: React.FC = () => {
+  const history = useHistory();
+
+  const handleLogout = () => history.push('/login');
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
           <IonTitle>Home</IonTitle>
+          <IonButtons slot="primary">
+            <IonButton icon-only onClick={handleLogout}>
+              <IonIcon icon={logOut}></IonIcon>
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>

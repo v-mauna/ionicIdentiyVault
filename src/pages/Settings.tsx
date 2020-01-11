@@ -2,13 +2,17 @@ import React from 'react';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { logOut } from 'ionicons/icons';
 import { AuthMode } from '@ionic-enterprise/identity-vault';
+import { useHistory } from 'react-router';
 
 import AuthControlPanel from '../components/AuthControlPanel';
 
 const Settings: React.FC = () => {
+  const history = useHistory();
+
   const handleAuthModeChanged = (newAuthMode: AuthMode) => console.log('New Auth Mode:', newAuthMode);
   const handleLock = () => console.log('Lock Clicked');
-  const handleLogout = () => console.log('Logout Clicked');
+
+  const handleLogout = () => history.push('/login');
 
   return (
     <IonPage>
@@ -22,7 +26,7 @@ const Settings: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent className="ion-padding">
         <AuthControlPanel
           authMode={AuthMode.BiometricAndPasscode}
           biometricType="touchID"
