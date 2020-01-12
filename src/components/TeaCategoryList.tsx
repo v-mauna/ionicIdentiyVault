@@ -15,9 +15,7 @@ const TeaCategoryList: React.FC<TeaCategoryProps> = ({ categories, onCategoryCli
       {categories.map(cat => (
         <TeaCategoryItem
           key={cat.id}
-          categoryId={cat.id}
-          title={cat.name}
-          description={cat.description}
+          category={cat}
           onCategoryClick={onCategoryClick}
         ></TeaCategoryItem>
       ))}

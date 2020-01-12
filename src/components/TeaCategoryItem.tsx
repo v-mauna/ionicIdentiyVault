@@ -1,25 +1,24 @@
 import React from 'react';
 import { IonItem, IonLabel } from '@ionic/react';
+import { TeaCategory } from '../models';
 
 type TeaCategoryItemProps = {
-  categoryId: number;
-  title: string;
-  description: string;
+  category: TeaCategory;
   onCategoryClick: (id: number) => void;
 };
 
-const TeaCategoryItem: React.FC<TeaCategoryItemProps> = ({categoryId, title, description, onCategoryClick }) => {
+const TeaCategoryItem: React.FC<TeaCategoryItemProps> = ({category, onCategoryClick }) => {
   const labelStyle = {
     whiteSpace: 'normal'
   };
 
-  const handleClick = () => onCategoryClick(categoryId);
+  const handleClick = () => onCategoryClick(category.id);
 
   return (
     <IonItem>
       <IonLabel style={labelStyle} onClick={handleClick}>
-        <div className="title">{title}</div>
-        <div>{description}</div>
+        <div className="title">{category.name}</div>
+        <div>{category.description}</div>
       </IonLabel>
     </IonItem>
   );
