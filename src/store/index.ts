@@ -16,3 +16,15 @@ export const getTeaCategories = (store: CombinedState<{ teaCategories: any }>) =
 export const getTeaCategory = (store: CombinedState<{ teaCategories: any }>, id: number) => {
   return store.teaCategories.categories.find((cat: TeaCategory) => cat.id === id);
 };
+
+export const getAuthMode = (store: CombinedState<{ settings: any }>) => {
+  return store.settings.authMode;
+};
+
+export const getBiometricsAvailable = (store: CombinedState<{ settings: any }>) => {
+  return store.settings.biometricsAvailable;
+};
+
+export const getBiometricType = (store: CombinedState<{ settings: any }>) => {
+  return store.settings.biometricType;
+};

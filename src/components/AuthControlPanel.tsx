@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonToggle } from '@ionic/react';
 import { lock, logOut } from 'ionicons/icons';
@@ -18,36 +18,36 @@ const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
   onLock,
   onLogout
 }) => {
-  const [biometrics, setBiometrics] = useState<boolean>(
-    authMode === AuthMode.BiometricAndPasscode || authMode === AuthMode.BiometricOnly
-  );
-  const [passcode, setPasscode] = useState<boolean>(
-    authMode === AuthMode.BiometricAndPasscode || authMode === AuthMode.PasscodeOnly
-  );
-  const [secureStorge, setSecureStorge] = useState<boolean>(authMode === AuthMode.SecureStorage);
+  const [biometrics, setBiometrics] = useState<boolean>(false);
+  const [passcode, setPasscode] = useState<boolean>(false);
+  const [secureStorge, setSecureStorge] = useState<boolean>(false);
 
-  const toggleUseBiometrics = (evt: any) => {
-    setBiometrics(evt.detail.checked);
-    onAuthModeChanged(newAuthMode(evt.detail.checked, passcode));
+  useEffect(() => {
+    setBiometrics(authMode === AuthMode.BiometricAndPasscode || authMode === AuthMode.BiometricOnly);
+    setPasscode(authMode === AuthMode.BiometricAndPasscode || authMode === AuthMode.PasscodeOnly);
+    setSecureStorge(authMode === AuthMode.SecureStorage);
+  }, [authMode]);
+
+  const toggleUseBiometrics = () => {
+    onAuthModeChanged(newAuthMode(!biometrics, passcode, secureStorge));
   };
 
-  const toggleUsePasscode = (evt: CustomEvent) => {
-    setPasscode(evt.detail.checked);
-    onAuthModeChanged(newAuthMode(biometrics, evt.detail.checked));
+  const toggleUsePasscode = () => {
+    onAuthModeChanged(newAuthMode(biometrics, !passcode, secureStorge));
   };
 
-  const toggleUseSecureStorage = (evt: CustomEvent) => {
-    setSecureStorge(evt.detail.checked);
-    if (evt.detail.checked) {
+  const toggleUseSecureStorage = () => {
+    if (!secureStorge) {
       setBiometrics(false);
       setPasscode(false);
-      onAuthModeChanged(AuthMode.SecureStorage);
-    } else {
-      onAuthModeChanged(newAuthMode(biometrics, passcode));
     }
+    onAuthModeChanged(newAuthMode(biometrics, passcode, !secureStorge));
   };
 
-  const newAuthMode = (biometrics: boolean, passcode: boolean): AuthMode => {
+  const newAuthMode = (biometrics: boolean, passcode: boolean, secureStorge: boolean): AuthMode => {
+    if (secureStorge) {
+      return AuthMode.SecureStorage;
+    }
     if (biometrics && passcode) {
       return AuthMode.BiometricAndPasscode;
     }
@@ -64,15 +64,15 @@ const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
     <IonList>
       <IonItem>
         <IonLabel>Use Biometrics ({biometricType})</IonLabel>
-        <IonToggle checked={biometrics} disabled={secureStorge} onIonChange={toggleUseBiometrics}></IonToggle>
+        <IonToggle checked={biometrics} disabled={secureStorge} onClick={toggleUseBiometrics}></IonToggle>
       </IonItem>
       <IonItem>
         <IonLabel>Use Passcode</IonLabel>
-        <IonToggle checked={passcode} disabled={secureStorge} onIonChange={toggleUsePasscode}></IonToggle>
+        <IonToggle checked={passcode} disabled={secureStorge} onClick={toggleUsePasscode}></IonToggle>
       </IonItem>
       <IonItem>
         <IonLabel>Secure Storage Mode</IonLabel>
-        <IonToggle checked={secureStorge} onIonChange={toggleUseSecureStorage}></IonToggle>
+        <IonToggle checked={secureStorge} onClick={toggleUseSecureStorage}></IonToggle>
       </IonItem>
       <IonItem>
         <IonLabel>Lock</IonLabel>

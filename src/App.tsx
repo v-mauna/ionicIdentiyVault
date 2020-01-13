@@ -27,9 +27,11 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/styles.css';
+import { load as loadSettings } from './store/settings-actions';
 import { load as loadTeaCategories } from './store/tea-category-actions';
 
 const App: React.FC = () => {
+  store.dispatch(loadSettings());
   store.dispatch(loadTeaCategories());
 
   return (

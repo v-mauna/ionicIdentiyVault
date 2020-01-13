@@ -1,12 +1,12 @@
 import { TeaCategory } from '../models';
-import {teaCategories} from '../services/tea-catogories-api';
+import {teaCategories} from '../services/tea-catogories.service';
 
 export enum TeaCategoryActionTypes {
   loading = '[Application] Loading Tea Categories',
   loadSuccess = '[Tea Category API] load success',
   loadFailure = '[Tea Category API] load failure',
 
-  updating = '[Tea Category Editor] updating timer',
+  updating = '[Tea Category Editor] updating tea category',
   updateSuccess = '[Tea Category API] update success',
   updateFailure = '[Tea Category API] update failure'
 }
@@ -31,14 +31,14 @@ export const loadFailure = (error: Error) => ({
 
 export const update = (payload: TeaCategory) => {
   return async (dispatch: any) => {
-    dispatch(updating(payload));
+    dispatch(updating());
     const cat = await teaCategories.update(payload);
     return dispatch(updateSuccess(cat));
   }
 };
 
-export const updating = (payload: TeaCategory) => ({
-  type: TeaCategoryActionTypes.updating, payload
+export const updating = () => ({
+  type: TeaCategoryActionTypes.updating
 });
 export const updateSuccess = (payload: TeaCategory) => ({
   type: TeaCategoryActionTypes.updateSuccess, payload
