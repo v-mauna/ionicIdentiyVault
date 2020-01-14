@@ -9,8 +9,8 @@ class SettingsService {
   }
 
   async getAuthMode(): Promise<AuthMode | undefined> {
-    const data = await Storage.get({ key: 'authMode' });
-    return data.value ? parseInt(data.value) : undefined;
+    const { value } = await Storage.get({ key: 'authMode' });
+    return value ? parseInt(value) : undefined;
   }
 }
 

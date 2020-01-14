@@ -27,12 +27,11 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/styles.css';
-import { load as loadSettings } from './store/settings-actions';
-import { load as loadTeaCategories } from './store/tea-category-actions';
+import { load as loadAuth } from './store/auth-actions';
+import AuthMonitor from "./components/AuthMonitor";
 
 const App: React.FC = () => {
-  store.dispatch(loadSettings());
-  store.dispatch(loadTeaCategories());
+  store.dispatch(loadAuth());
 
   return (
     <Provider store={store}>
@@ -43,6 +42,7 @@ const App: React.FC = () => {
             <Route path="/login" component={Login} />
             <Route path="/" render={() => <Redirect to="/tabs" />} exact={true} />
           </IonRouterOutlet>
+          <AuthMonitor></AuthMonitor>
         </IonReactRouter>
       </IonApp>
     </Provider>
