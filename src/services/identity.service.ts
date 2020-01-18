@@ -1,5 +1,4 @@
 import { Plugins } from '@capacitor/core';
-import { AuthMode } from '@ionic-enterprise/identity-vault';
 import { User } from '../models';
 
 const { Storage } = Plugins;

@@ -1,7 +1,18 @@
+import { authentication } from '../services/authentication.service';
+import { identity } from '../services/identity.service';
+
 export interface AuthPayload {
-  email?:string,
-  password?:string,
-  token?:string
+  email: string;
+  password: string;
+}
+
+export interface SessionPayload {
+  email?: string | null;
+  token?: string | null;
+}
+
+export interface LoginPayload {
+  success: boolean;
 }
 
 export enum AuthStatus {
@@ -25,22 +36,19 @@ export enum AuthActionTypes {
   logoutFailure = '[Authentication API] logout failure'
 }
 
-
 export const load = () => {
   return async (dispatch: any) => {
     dispatch(loading());
-    await new Promise(resolve => setTimeout(() => {
-      resolve()
-    }, 1500));
-    return dispatch(loadSuccess({email:'test@test.com', token:'I ama happy token'}));
-    // return dispatch(loadSuccess({}));
+    const email = await identity.getEmail();
+    const token = await identity.getToken();
+    return dispatch(loadSuccess({ email, token }));
   };
 };
 
 export const loading = () => ({
   type: AuthActionTypes.loading
 });
-export const loadSuccess = (payload: AuthPayload) => ({
+export const loadSuccess = (payload: SessionPayload) => ({
   type: AuthActionTypes.loadSuccess,
   payload
 });
@@ -52,17 +60,15 @@ export const loadFailure = (error: Error) => ({
 export const login = (payload: AuthPayload) => {
   return async (dispatch: any) => {
     dispatch(loggingIn());
-    const res = await new Promise(resolve => setTimeout(() => {
-      resolve({email: payload.email, token: 'IAmAHappyToken'})
-    }, 1500));
-    return dispatch(loginSuccess(res as any));
+    const res = await authentication.login(payload.email, payload.password);
+    return dispatch(loginSuccess({ success: res as any }));
   };
 };
 
 export const loggingIn = () => ({
   type: AuthActionTypes.loggingIn
 });
-export const loginSuccess = (payload: AuthPayload) => ({
+export const loginSuccess = (payload: LoginPayload) => ({
   type: AuthActionTypes.loginSuccess,
   payload
 });
@@ -73,16 +79,14 @@ export const loginFailure = (error: Error) => ({
 
 export const logout = () => {
   return async (dispatch: any) => {
-    dispatch(loggingIn());
-    await new Promise(resolve => setTimeout(() => {
-      resolve()
-    }, 1500));
+    dispatch(loggingOut());
+    await authentication.logout();
     return dispatch(logoutSuccess());
   };
 };
 
 export const loggingOut = () => ({
-  type: AuthActionTypes.loading
+  type: AuthActionTypes.loggingOut
 });
 export const logoutSuccess = () => ({
   type: AuthActionTypes.logoutSuccess

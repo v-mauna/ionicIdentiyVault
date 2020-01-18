@@ -15,14 +15,13 @@ const AuthMonitor: React.FC = () => {
     console.log('Create the AuthMonitor', previousAuthStatus);
     const unsubscribe = store.subscribe(() => {
       const state = store.getState();
+      console.log('Checking the Auth State', previousAuthStatus, state.auth.status);
       if (previousAuthStatus !== state.auth.status) {
         previousAuthStatus = state.auth.status;
         if (state.auth.status === AuthStatus.LoggedIn) {
-          history.push('/tabs/home');
-          setTimeout(() => {
-            store.dispatch<any>(loadSettings());
-            store.dispatch<any>(loadTeaCategories());
-          });
+          store.dispatch<any>(loadSettings());
+          store.dispatch<any>(loadTeaCategories());
+          history.replace('/tabs/home');
         } else {
           history.replace('/login');
           console.log('I should probably also have something to clear the data');

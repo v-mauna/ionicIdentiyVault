@@ -1,15 +1,16 @@
 import React from 'react';
+import { useStore } from 'react-redux';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { logOut } from 'ionicons/icons';
-import { useHistory } from 'react-router';
 
 import UpdateSettings from '../containers/UpdateSettings';
+import { logout } from '../store/auth-actions';
 
 const Settings: React.FC = () => {
-  const history = useHistory();
+  const store = useStore();
 
   const handleLock = () => console.log('Lock Clicked');
-  const handleLogout = () => history.push('/login');
+  const handleLogout = () => store.dispatch<any>(logout());
 
   return (
     <IonPage>

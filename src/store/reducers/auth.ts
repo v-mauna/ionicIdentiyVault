@@ -28,7 +28,6 @@ const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninit
       };
 
     case AuthActionTypes.loadSuccess:
-    case AuthActionTypes.loginSuccess:
       console.log('load success', action.payload);
       return {
         ...state,
@@ -36,6 +35,13 @@ const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninit
         status: action.payload.token ? AuthStatus.LoggedIn : AuthStatus.LoggedOut,
         email: action.payload.email,
         token: action.payload.token
+      };
+
+    case AuthActionTypes.loginSuccess:
+      return {
+        ...state,
+        loading: false,
+        status: action.payload.success ? AuthStatus.LoggedIn : state.status
       };
 
     case AuthActionTypes.logoutSuccess:

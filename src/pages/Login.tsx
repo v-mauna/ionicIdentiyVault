@@ -12,16 +12,17 @@ import {
   IonButton
 } from '@ionic/react';
 import { useHistory } from 'react-router';
+import { useStore } from 'react-redux';
+import { login } from '../store/auth-actions';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorMessage] = useState();
-  const history = useHistory();
+  const store = useStore();
 
   const handleSignIn = () => {
-    console.log('button push', email, password);
-    history.push('/tabs/home');
+    store.dispatch<any>(login({ email, password }));
   };
   const handleEmailChange = (evt: CustomEvent) => setEmail(evt.detail.value);
   const handlePasswordChange = (evt: CustomEvent) => setPassword(evt.detail.value);
