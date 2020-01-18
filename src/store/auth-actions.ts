@@ -120,6 +120,13 @@ export const logoutFailure = (error: Error) => ({
   error
 });
 
+export const updateAuthMode = (payload: {authMode: AuthMode}) => {
+  return async (dispatch: any) => {
+    await identity.setAuthMode(payload.authMode);
+    return dispatch(loadAuthMode());
+  }
+}
+
 export const unauthorized = () => ({
   type: AuthActionTypes.unauthorized
 });
