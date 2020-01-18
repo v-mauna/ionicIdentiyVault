@@ -46,8 +46,8 @@ export enum AuthActionTypes {
 export const load = () => {
   return async (dispatch: any) => {
     dispatch(loading());
-    const email = await identity.getEmail();
     const token = await identity.getToken();
+    const email = await identity.getEmail();
     return dispatch(loadSuccess({ email, token }));
   };
 };
@@ -68,7 +68,11 @@ export const login = (payload: AuthPayload) => {
   return async (dispatch: any) => {
     dispatch(loggingIn());
     const res = await authentication.login(payload.email, payload.password);
-    return dispatch(loginSuccess({ success: res as any }));
+    if (res.success) {
+      await identity.login({ username: res.user!.email, token: res.token! });
+      dispatch(sessionSet({ email: res.user!.email, token: res.token }));
+    }
+    return dispatch(loginSuccess({ success: res.success }));
   };
 };
 
@@ -88,6 +92,8 @@ export const logout = () => {
   return async (dispatch: any) => {
     dispatch(loggingOut());
     await authentication.logout();
+    await identity.logout();
+    dispatch(sessionCleared());
     return dispatch(logoutSuccess());
   };
 };

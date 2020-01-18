@@ -8,7 +8,7 @@ interface AuthState {
   error?: Error;
 }
 
-const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninitialized }, action: any) => {
+const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitialized }, action: any) => {
   switch (action.type) {
     case AuthActionTypes.loading:
     case AuthActionTypes.loggingOut:
@@ -28,7 +28,6 @@ const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninit
       };
 
     case AuthActionTypes.loadSuccess:
-      console.log('load success', action.payload);
       return {
         ...state,
         loading: false,
@@ -63,8 +62,24 @@ const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninit
         status: AuthStatus.Invalid,
         error: action.error
       };
+
+    case AuthActionTypes.sessionSet:
+      return {
+        ...state,
+        email: action.payload.email,
+        token: action.payload.token
+      };
+
+    case AuthActionTypes.sessionLocked:
+    case AuthActionTypes.sessionCleared:
+      return {
+        ...state,
+        email: undefined,
+        token: undefined
+      };
+
     default:
       return state;
   }
 };
-export default settings;
+export default auth;

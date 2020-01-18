@@ -1,8 +1,9 @@
 import { environment } from './environment';
 import { identity } from './identity.service';
+import { User } from '../models';
 
 export class AuthenticationService {
-  async login(username: string, password: string): Promise<boolean> {
+  async login(username: string, password: string): Promise<{ success: boolean; token?: string; user?: User }> {
     const response = await fetch(`${environment.dataService}/login`, {
       method: 'POST',
       headers: {
@@ -10,8 +11,7 @@ export class AuthenticationService {
       },
       body: JSON.stringify({ username, password })
     });
-    const data = await response.json();
-    return this.unpackResponse(data);
+    return await response.json();
   }
 
   async logout(): Promise<void> {
@@ -22,14 +22,6 @@ export class AuthenticationService {
         headers: { Authorization: 'Bearer ' + token }
       });
     }
-    await identity.remove();
-  }
-
-  private async unpackResponse(r: any): Promise<boolean> {
-    if (r.success) {
-      identity.set(r.user, r.token);
-    }
-    return r.success;
   }
 }
 
