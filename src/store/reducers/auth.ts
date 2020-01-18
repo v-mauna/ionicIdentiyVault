@@ -1,10 +1,12 @@
 import { AuthActionTypes, AuthStatus } from '../auth-actions';
+import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 
 interface AuthState {
   loading: boolean;
   status: AuthStatus;
   email?: string;
-  token?: string;
+  authMode?: AuthMode;
+  biometricType?: BiometricType;
   error?: Error;
 }
 
@@ -23,17 +25,22 @@ const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitiali
         ...state,
         loading: true,
         error: undefined,
-        email: undefined,
-        token: undefined
+        email: undefined
       };
 
     case AuthActionTypes.loadSuccess:
       return {
         ...state,
         loading: false,
-        status: action.payload.token ? AuthStatus.LoggedIn : AuthStatus.LoggedOut,
-        email: action.payload.email,
-        token: action.payload.token
+        status: action.payload.email ? AuthStatus.LoggedIn : AuthStatus.LoggedOut,
+        email: action.payload.email
+      };
+
+    case AuthActionTypes.loadAuthModeSuccess:
+      return {
+        ...state,
+        authMode: action.payload.authMode,
+        biometricType: action.payload.biometricType
       };
 
     case AuthActionTypes.loginSuccess:
@@ -49,11 +56,9 @@ const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitiali
         ...state,
         loading: false,
         status: AuthStatus.LoggedOut,
-        email: undefined,
-        token: undefined
+        email: undefined
       };
 
-    case AuthActionTypes.loadFailure:
     case AuthActionTypes.loginFailure:
     case AuthActionTypes.logoutFailure:
       return {
@@ -66,16 +71,13 @@ const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitiali
     case AuthActionTypes.sessionSet:
       return {
         ...state,
-        email: action.payload.email,
-        token: action.payload.token
+        email: action.payload.email
       };
 
-    case AuthActionTypes.sessionLocked:
     case AuthActionTypes.sessionCleared:
       return {
         ...state,
-        email: undefined,
-        token: undefined
+        email: undefined
       };
 
     default:

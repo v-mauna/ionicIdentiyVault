@@ -9,30 +9,26 @@ const loggerMiddleware = createLogger();
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
 
-export const getTeaCategories = (store: CombinedState<{ teaCategories: any }>) => {
-  return store.teaCategories.categories;
+export const getTeaCategories = (state: CombinedState<{ teaCategories: any }>) => {
+  return state.teaCategories.categories;
 };
 
-export const getTeaCategory = (store: CombinedState<{ teaCategories: any }>, id: number) => {
-  return store.teaCategories.categories.find((cat: TeaCategory) => cat.id === id);
+export const getTeaCategory = (state: CombinedState<{ teaCategories: any }>, id: number) => {
+  return state.teaCategories.categories.find((cat: TeaCategory) => cat.id === id);
 };
 
-export const getAuthMode = (store: CombinedState<{ settings: any }>) => {
-  return store.settings.authMode;
+export const getAuthMode = (state: CombinedState<{ settings: any }>) => {
+  return state.settings.authMode;
 };
 
-export const getBiometricsAvailable = (store: CombinedState<{ settings: any }>) => {
-  return store.settings.biometricsAvailable;
+export const getEMail = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.email;
 };
 
-export const getBiometricType = (store: CombinedState<{ settings: any }>) => {
-  return store.settings.biometricType;
+export const getVaultAuthMode = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.authMode;
 };
 
-export const getToken = (store: CombinedState<{ auth: any }>) => {
-  return store.auth.token;
-};
-
-export const getEMail = (store: CombinedState<{ auth: any }>) => {
-  return store.auth.email;
+export const getBiometricType = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.biometricType;
 };

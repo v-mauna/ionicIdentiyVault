@@ -1,14 +1,19 @@
 import { authentication } from '../services/authentication.service';
 import { identity } from '../services/identity.service';
+import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 
 export interface AuthPayload {
   email: string;
   password: string;
 }
 
+export interface AuthModePayload {
+  authMode: AuthMode;
+  biometricType: BiometricType;
+}
+
 export interface SessionPayload {
   email?: string | null;
-  token?: string | null;
 }
 
 export interface LoginPayload {
@@ -25,7 +30,7 @@ export enum AuthStatus {
 export enum AuthActionTypes {
   loading = '[Application] Loading Authentication',
   loadSuccess = '[Authentication API] load success',
-  loadFailure = '[Authentication API] load failure',
+  loadAuthModeSuccess = '[Store] load auth mode success',
 
   loggingIn = '[Application] logging in',
   loginSuccess = '[Authentication API] login success',
@@ -38,17 +43,23 @@ export enum AuthActionTypes {
   unauthorized = '[Data API] unauthorized',
 
   sessionSet = '[Identity API] session set',
-  sessionLocked = '[Identity API] session locked',
-  sessionUnLocked = '[Identity API] session unlocked',
   sessionCleared = '[Identity API] session cleared'
 }
 
 export const load = () => {
   return async (dispatch: any) => {
     dispatch(loading());
-    const token = await identity.getToken();
     const email = await identity.getEmail();
-    return dispatch(loadSuccess({ email, token }));
+    dispatch(loadAuthMode());
+    return dispatch(loadSuccess({ email }));
+  };
+};
+
+export const loadAuthMode = () => {
+  return async (dispatch: any) => {
+    const authMode = await identity.getAuthMode();
+    const biometricType = await identity.getBiometricType();
+    return dispatch(loadAuthModeSuccess({ authMode, biometricType }));
   };
 };
 
@@ -59,9 +70,9 @@ export const loadSuccess = (payload: SessionPayload) => ({
   type: AuthActionTypes.loadSuccess,
   payload
 });
-export const loadFailure = (error: Error) => ({
-  type: AuthActionTypes.loadFailure,
-  error
+export const loadAuthModeSuccess = (payload: AuthModePayload) => ({
+  type: AuthActionTypes.loadAuthModeSuccess,
+  payload
 });
 
 export const login = (payload: AuthPayload) => {
@@ -70,7 +81,7 @@ export const login = (payload: AuthPayload) => {
     const res = await authentication.login(payload.email, payload.password);
     if (res.success) {
       await identity.login({ username: res.user!.email, token: res.token! });
-      dispatch(sessionSet({ email: res.user!.email, token: res.token }));
+      dispatch(sessionSet({ email: res.user!.email }));
     }
     return dispatch(loginSuccess({ success: res.success }));
   };
@@ -115,13 +126,6 @@ export const unauthorized = () => ({
 
 export const sessionSet = (payload: SessionPayload) => ({
   type: AuthActionTypes.sessionSet,
-  payload
-});
-export const sessionLocked = () => ({
-  type: AuthActionTypes.sessionLocked
-});
-export const sessionUnLocked = (payload: SessionPayload) => ({
-  type: AuthActionTypes.sessionUnLocked,
   payload
 });
 export const sessionCleared = () => ({
