@@ -3,6 +3,7 @@ import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 
 interface AuthState {
   loading: boolean;
+  hasSession: boolean;
   status: AuthStatus;
   email?: string;
   authMode?: AuthMode;
@@ -10,7 +11,10 @@ interface AuthState {
   error?: Error;
 }
 
-const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitialized }, action: any) => {
+const auth = (
+  state: AuthState = { loading: false, hasSession: false, status: AuthStatus.Uninitialized },
+  action: any
+) => {
   switch (action.type) {
     case AuthActionTypes.loading:
     case AuthActionTypes.loggingOut:
@@ -40,7 +44,8 @@ const auth = (state: AuthState = { loading: false, status: AuthStatus.Uninitiali
       return {
         ...state,
         authMode: action.payload.authMode,
-        biometricType: action.payload.biometricType
+        biometricType: action.payload.biometricType,
+        hasSession: action.payload.hasSession
       };
 
     case AuthActionTypes.loginSuccess:

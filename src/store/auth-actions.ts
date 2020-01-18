@@ -10,6 +10,7 @@ export interface AuthPayload {
 export interface AuthModePayload {
   authMode: AuthMode;
   biometricType: BiometricType;
+  hasSession: boolean;
 }
 
 export interface SessionPayload {
@@ -55,11 +56,12 @@ export const load = () => {
   };
 };
 
-export const loadAuthMode = () => {
+const loadAuthMode = () => {
   return async (dispatch: any) => {
     const authMode = await identity.getAuthMode();
     const biometricType = await identity.getBiometricType();
-    return dispatch(loadAuthModeSuccess({ authMode, biometricType }));
+    const hasSession = await identity.hasStoredSession();
+    return dispatch(loadAuthModeSuccess({ authMode, biometricType, hasSession }));
   };
 };
 
@@ -83,6 +85,7 @@ export const login = (payload: AuthPayload) => {
       await identity.login({ username: res.user!.email, token: res.token! });
       dispatch(sessionSet({ email: res.user!.email }));
     }
+    dispatch(loadAuthMode());
     return dispatch(loginSuccess({ success: res.success }));
   };
 };
@@ -105,6 +108,7 @@ export const logout = () => {
     await authentication.logout();
     await identity.logout();
     dispatch(sessionCleared());
+    dispatch(loadAuthMode());
     return dispatch(logoutSuccess());
   };
 };
@@ -120,12 +124,25 @@ export const logoutFailure = (error: Error) => ({
   error
 });
 
-export const updateAuthMode = (payload: {authMode: AuthMode}) => {
+export const lock = () => {
+  return async () => {
+    await identity.lockOut();
+  }
+}
+
+export const unlock = () => {
+  return async (dispatch: any) => {
+    await identity.restoreSession();
+    return dispatch(load());
+  }
+}
+
+export const updateAuthMode = (payload: { authMode: AuthMode }) => {
   return async (dispatch: any) => {
     await identity.setAuthMode(payload.authMode);
     return dispatch(loadAuthMode());
-  }
-}
+  };
+};
 
 export const unauthorized = () => ({
   type: AuthActionTypes.unauthorized

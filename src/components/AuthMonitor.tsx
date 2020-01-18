@@ -12,10 +12,8 @@ const AuthMonitor: React.FC = () => {
 
   useEffect(() => {
     let previousAuthStatus: number = store.getState().auth.status;
-    console.log('Create the AuthMonitor', previousAuthStatus);
     const unsubscribe = store.subscribe(() => {
       const state = store.getState();
-      console.log('Checking the Auth State', previousAuthStatus, state.auth.status);
       if (previousAuthStatus !== state.auth.status) {
         previousAuthStatus = state.auth.status;
         if (state.auth.status === AuthStatus.LoggedIn) {
@@ -24,7 +22,6 @@ const AuthMonitor: React.FC = () => {
           history.replace('/tabs/home');
         } else {
           history.replace('/login');
-          console.log('I should probably also have something to clear the data');
         }
       }
     });

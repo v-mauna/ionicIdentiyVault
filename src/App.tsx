@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, isPlatform } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Provider } from 'react-redux';
+import { Plugins, StatusBarStyle } from '@capacitor/core';
 
 import Login from './pages/Login';
 import Tabs from './pages/Tabs';
@@ -28,9 +29,15 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './theme/styles.css';
 import { load as loadAuth } from './store/auth-actions';
-import AuthMonitor from "./components/AuthMonitor";
+import AuthMonitor from './components/AuthMonitor';
+
+const { StatusBar, SplashScreen } = Plugins;
 
 const App: React.FC = () => {
+  if (isPlatform('cordova')) {
+    SplashScreen.hide();
+    StatusBar.setStyle({ style: StatusBarStyle.Light });
+  }
   store.dispatch(loadAuth());
 
   return (

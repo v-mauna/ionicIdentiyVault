@@ -9,7 +9,6 @@ import { logout } from '../store/auth-actions';
 const Settings: React.FC = () => {
   const store = useStore();
 
-  const handleLock = () => console.log('Lock Clicked');
   const handleLogout = () => store.dispatch<any>(logout());
 
   return (
@@ -25,7 +24,7 @@ const Settings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <UpdateSettings onLock={handleLock} onLogout={handleLogout}></UpdateSettings>
+        <UpdateSettings></UpdateSettings>
       </IonContent>
     </IonPage>
   );

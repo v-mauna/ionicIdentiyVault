@@ -12,6 +12,7 @@ import {
   IonButton
 } from '@ionic/react';
 import { useStore } from 'react-redux';
+import UnlockApplication from "../containers/UnlockApplication";
 import { login } from '../store/auth-actions';
 
 const Login: React.FC = () => {
@@ -49,6 +50,7 @@ const Login: React.FC = () => {
           Sign In
         </IonButton>
         <div className="error-message">{errorMessage}</div>
+        <UnlockApplication></UnlockApplication>
         {/* 
 
 TODO: this bit should be a component
@@ -64,7 +66,7 @@ TODO: this bit should be a component
       </div>
     </div>
 
-  </form> */}
+   */}
       </IonContent>
     </IonPage>
   );
