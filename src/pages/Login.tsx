@@ -11,7 +11,6 @@ import {
   IonInput,
   IonButton
 } from '@ionic/react';
-import { useHistory } from 'react-router';
 import { useStore } from 'react-redux';
 import { login } from '../store/auth-actions';
 

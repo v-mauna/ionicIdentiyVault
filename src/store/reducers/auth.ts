@@ -45,6 +45,7 @@ const settings = (state: AuthState = { loading: false, status: AuthStatus.Uninit
       };
 
     case AuthActionTypes.logoutSuccess:
+    case AuthActionTypes.unauthorized:
       return {
         ...state,
         loading: false,

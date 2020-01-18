@@ -28,3 +28,11 @@ export const getBiometricsAvailable = (store: CombinedState<{ settings: any }>) 
 export const getBiometricType = (store: CombinedState<{ settings: any }>) => {
   return store.settings.biometricType;
 };
+
+export const getToken = (store: CombinedState<{ auth: any }>) => {
+  return store.auth.token;
+};
+
+export const getEMail = (store: CombinedState<{ auth: any }>) => {
+  return store.auth.email;
+};

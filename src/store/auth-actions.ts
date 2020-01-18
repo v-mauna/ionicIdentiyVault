@@ -33,7 +33,14 @@ export enum AuthActionTypes {
 
   loggingOut = '[Application] logging out',
   logoutSuccess = '[Authentication API] logout success',
-  logoutFailure = '[Authentication API] logout failure'
+  logoutFailure = '[Authentication API] logout failure',
+
+  unauthorized = '[Data API] unauthorized',
+
+  sessionSet = '[Identity API] session set',
+  sessionLocked = '[Identity API] session locked',
+  sessionUnLocked = '[Identity API] session unlocked',
+  sessionCleared = '[Identity API] session cleared'
 }
 
 export const load = () => {
@@ -94,4 +101,23 @@ export const logoutSuccess = () => ({
 export const logoutFailure = (error: Error) => ({
   type: AuthActionTypes.logoutFailure,
   error
+});
+
+export const unauthorized = () => ({
+  type: AuthActionTypes.unauthorized
+});
+
+export const sessionSet = (payload: SessionPayload) => ({
+  type: AuthActionTypes.sessionSet,
+  payload
+});
+export const sessionLocked = () => ({
+  type: AuthActionTypes.sessionLocked
+});
+export const sessionUnLocked = (payload: SessionPayload) => ({
+  type: AuthActionTypes.sessionUnLocked,
+  payload
+});
+export const sessionCleared = () => ({
+  type: AuthActionTypes.sessionCleared
 });
