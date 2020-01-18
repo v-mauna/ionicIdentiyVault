@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "cs-demo-iv-react",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
