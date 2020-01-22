@@ -1,5 +1,5 @@
 .error-message {
-  font-size: small;
+  margin-top: 32px;
   color: var(--ion-color-danger);
 }
 

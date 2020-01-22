@@ -52,7 +52,8 @@ const auth = (
       return {
         ...state,
         loading: false,
-        status: action.payload.success ? AuthStatus.LoggedIn : state.status
+        status: action.payload.success ? AuthStatus.LoggedIn : state.status,
+        error: action.payload.success ? undefined : new Error('Invalid username or password')
       };
 
     case AuthActionTypes.logoutSuccess:

@@ -5,6 +5,7 @@ import { useStore } from 'react-redux';
 import { AuthStatus } from '../store/auth-actions';
 import { load as loadSettings } from '../store/settings-actions';
 import { load as loadTeaCategories } from '../store/tea-category-actions';
+import { getAuthStatus } from '../store';
 
 const AuthMonitor: React.FC = () => {
   const history = useHistory();
@@ -13,10 +14,10 @@ const AuthMonitor: React.FC = () => {
   useEffect(() => {
     let previousAuthStatus: number = store.getState().auth.status;
     const unsubscribe = store.subscribe(() => {
-      const state = store.getState();
-      if (previousAuthStatus !== state.auth.status) {
-        previousAuthStatus = state.auth.status;
-        if (state.auth.status === AuthStatus.LoggedIn) {
+      const currentStatus = getAuthStatus(store.getState());
+      if (previousAuthStatus !== currentStatus) {
+        previousAuthStatus = currentStatus;
+        if (currentStatus === AuthStatus.LoggedIn) {
           store.dispatch<any>(loadSettings());
           store.dispatch<any>(loadTeaCategories());
           history.replace('/tabs/home');
@@ -25,7 +26,7 @@ const AuthMonitor: React.FC = () => {
         }
       }
     });
-    return () => unsubscribe();
+    return unsubscribe;
   });
 
   return <></>;

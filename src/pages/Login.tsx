@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -14,12 +14,22 @@ import {
 import { useStore } from 'react-redux';
 import UnlockApplication from "../containers/UnlockApplication";
 import { login } from '../store/auth-actions';
+import { getAuthError } from '../store';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [errorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
   const store = useStore();
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      const error = getAuthError(store.getState());
+      setErrorMessage(error? error.message : '');
+    });
+
+    return unsubscribe;
+  });
 
   const handleSignIn = () => {
     store.dispatch<any>(login({ email, password }));
@@ -51,22 +61,6 @@ const Login: React.FC = () => {
         </IonButton>
         <div className="error-message">{errorMessage}</div>
         <UnlockApplication></UnlockApplication>
-        {/* 
-
-TODO: this bit should be a component
-
-    <div class="unlock-app ion-text-center" *ngIf="displayVaultLogin" (click)="unlockClicked()">
-      <ion-icon name="unlock"></ion-icon>
-      <div>{{ loginType }}</div>
-    </div>
-
-    <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error-message">
-      <div *ngIf="emailInput.errors.email">
-        E-Mail Address must have a valid format
-      </div>
-    </div>
-
-   */}
       </IonContent>
     </IonPage>
   );

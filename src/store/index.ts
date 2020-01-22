@@ -23,6 +23,14 @@ export const getAuthMode = (state: CombinedState<{ settings: any }>) => {
   return state.settings.authMode;
 };
 
+export const getAuthError = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.error;
+};
+
+export const getAuthStatus = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.status;
+};
+
 export const getEMail = (state: CombinedState<{ auth: any }>) => {
   return state.auth.email;
 };
