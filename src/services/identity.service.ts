@@ -10,8 +10,8 @@ import {
 import { isPlatform } from '@ionic/react';
 import { settings } from './settings.service';
 import { browserAuthPlugin } from './browser-auth.plugin';
-import { store } from '../store';
-import { unauthorized } from '../store/auth-actions';
+import { store, getShowPinDialog, getEnteredPIN } from '../store';
+import { unauthorized, setApplicationPIN, unlockApplicationWithPIN } from '../store/auth-actions';
 
 export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
   private email: string | undefined;
@@ -86,19 +86,26 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
     console.log('The vault was unlocked with config: ', config);
   }
 
-  // TODO: Create a PIN dialog
-  // async onPasscodeRequest(isPasscodeSetRequest: boolean): Promise<string> {
-  //   const dlg = await this.modalController.create({
-  //     backdropDismiss: false,
-  //     component: PinDialogComponent,
-  //     componentProps: {
-  //       setPasscodeMode: isPasscodeSetRequest
-  //     }
-  //   });
-  //   dlg.present();
-  //   const { data } = await dlg.onDidDismiss();
-  //   return Promise.resolve(data || '');
-  // }
+  onPasscodeRequest(isPasscodeSetRequest: boolean): Promise<string> {
+    if (isPasscodeSetRequest) {
+      store.dispatch(setApplicationPIN());
+    } else {
+      store.dispatch(unlockApplicationWithPIN());
+    }
+    return this.waitForPasscode();
+  }
+
+  private waitForPasscode(): Promise<string> {
+    return new Promise(resolve => {
+      const unsub = store.subscribe(() => {
+        const state = store.getState();
+        if (!getShowPinDialog(state)) {
+          resolve(getEnteredPIN(state) || '');
+          unsub();
+        }
+      });
+    });
+  }
 
   onVaultLocked() {
     store.dispatch(unauthorized());

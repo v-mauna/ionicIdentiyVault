@@ -41,6 +41,18 @@ export const getBiometricType = (state: CombinedState<{ auth: any }>) => {
   return state.auth.biometricType;
 };
 
+export const getShowPinDialog = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.showPinDialog;
+};
+
+export const getIsSetApplicationPinMode = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.setApplicationPin;
+};
+
+export const getEnteredPIN = (state: CombinedState<{ auth: any }>) => {
+  return state.auth.enteredPIN;
+};
+
 export const getHasSession = (state: CombinedState<{ auth: any }>) => {
   return state.auth.hasSession;
 };

@@ -8,6 +8,9 @@ interface AuthState {
   email?: string;
   authMode?: AuthMode;
   biometricType?: BiometricType;
+  showPinDialog?: boolean;
+  setApplicationPin?: boolean;
+  enteredPIN?: string;
   error?: Error;
 }
 
@@ -84,6 +87,34 @@ const auth = (
       return {
         ...state,
         email: undefined
+      };
+
+    case AuthActionTypes.setApplicationPIN:
+      return {
+        ...state,
+        showPinDialog: true,
+        setApplicationPin: true
+      };
+
+    case AuthActionTypes.unlockApplicationWithPIN:
+      return {
+        ...state,
+        showPinDialog: true,
+        setApplicationPin: false
+      };
+
+    case AuthActionTypes.enterPIN:
+      return {
+        ...state,
+        showPinDialog: false,
+        enteredPIN: action.payload.pin
+      };
+
+    case AuthActionTypes.cancelPIN:
+      return {
+        ...state,
+        showPinDialog: false,
+        enteredPIN: undefined
       };
 
     default:

@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonToggle } from '@ionic/react';
-import { lock, logOut } from 'ionicons/icons';
+import { lock } from 'ionicons/icons';
+import { useStore } from 'react-redux';
 
 type AuthControlPanelProps = {
   biometricType: BiometricType;
   authMode: AuthMode;
   onAuthModeChanged: (authMode: AuthMode) => void;
   onLock: () => void;
-  onLogout: () => void;
 };
 
 const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
   authMode,
   biometricType,
   onAuthModeChanged,
-  onLock,
-  onLogout
+  onLock
 }) => {
   const [biometrics, setBiometrics] = useState<boolean>(false);
   const [passcode, setPasscode] = useState<boolean>(false);
@@ -78,12 +77,6 @@ const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
         <IonLabel>Lock</IonLabel>
         <IonButton onClick={onLock}>
           <IonIcon icon={lock}></IonIcon>
-        </IonButton>
-      </IonItem>
-      <IonItem>
-        <IonLabel>Logout</IonLabel>
-        <IonButton onClick={onLogout}>
-          <IonIcon icon={logOut}></IonIcon>
         </IonButton>
       </IonItem>
     </IonList>

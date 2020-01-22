@@ -14,6 +14,10 @@ export interface LoginPayload {
   success: boolean;
 }
 
+export interface PINPayload {
+  pin: string;
+}
+
 export enum AuthStatus {
   Uninitialized,
   LoggedIn,
@@ -37,7 +41,12 @@ export enum AuthActionTypes {
   unauthorized = '[Data API] unauthorized',
 
   sessionSet = '[Identity API] session set',
-  sessionCleared = '[Identity API] session cleared'
+  sessionCleared = '[Identity API] session cleared',
+
+  setApplicationPIN = '[Identity API] set application pin',
+  unlockApplicationWithPIN = '[Identity API] unlock with pin',
+  enterPIN = '[PIN Editor] enter pin',
+  cancelPIN = '[PIN Editor] cancel pin entry'
 }
 
 export const loading = () => ({
@@ -85,4 +94,21 @@ export const sessionSet = (payload: SessionPayload) => ({
 });
 export const sessionCleared = () => ({
   type: AuthActionTypes.sessionCleared
+});
+
+export const setApplicationPIN = () => ({
+  type: AuthActionTypes.setApplicationPIN
+});
+
+export const unlockApplicationWithPIN = () => ({
+  type: AuthActionTypes.unlockApplicationWithPIN
+});
+
+export const enterPIN = (payload: PINPayload) => ({
+  type: AuthActionTypes.enterPIN,
+  payload
+});
+
+export const cancelPIN = () => ({
+  type: AuthActionTypes.cancelPIN
 });

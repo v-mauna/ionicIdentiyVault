@@ -30,6 +30,7 @@ import './theme/variables.css';
 import './theme/styles.css';
 import { load as loadAuth } from './store/auth-actions.async';
 import AuthMonitor from './components/AuthMonitor';
+import AskForPin from './containers/AskForPin';
 
 const { StatusBar, SplashScreen } = Plugins;
 
@@ -43,6 +44,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <IonApp>
+        <AskForPin></AskForPin>
         <IonReactRouter>
           <IonRouterOutlet>
             <Route path="/tabs" component={Tabs} />

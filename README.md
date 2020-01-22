@@ -98,7 +98,9 @@ If any of these events occur, the `AuthMonitor` component detects the chage and 
 
 ### Services
 
-The services are called by the store to do some sort of work. As such, they know nothing about the rest of the system. They just do as they are told by the store.
+The services are called by the store to do some sort of work. As such, they know nothing about the rest of the system. They just do as they are told by the store. The notable exception is the `IdentityService`, which needs to be able to respond to events from the vault and thus dispatch actions.
+
+Since the store needs to use the `IdentityService` in its async actions, and the `IdentityService` needs to dispatch action, the asynchronous actions have been seperated from the synchonous actions. This avoids circular references.
 
 #### Authentication
 

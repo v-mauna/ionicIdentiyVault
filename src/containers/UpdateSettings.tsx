@@ -3,7 +3,7 @@ import AuthControlPanel from '../components/AuthControlPanel';
 import { getAuthMode, getBiometricType } from '../store';
 import { AuthMode } from '@ionic-enterprise/identity-vault';
 import { update } from '../store/settings-actions.async';
-import { updateAuthMode, lock, logout } from '../store/auth-actions.async';
+import { updateAuthMode, lock } from '../store/auth-actions.async';
 
 const mapStateToProps = (state: any) => ({
   authMode: getAuthMode(state),
@@ -17,9 +17,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   onLock: () => {
     dispatch(lock());
-  },
-  onLogout: () => {
-    dispatch(logout());
   }
 });
 
