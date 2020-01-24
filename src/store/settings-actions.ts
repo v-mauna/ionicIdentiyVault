@@ -1,5 +1,4 @@
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
-import { settings } from '../services/settings.service';
 
 export interface SettingsPayload {
   authMode?: AuthMode;
@@ -17,15 +16,6 @@ export enum SettingsActionTypes {
   updateFailure = '[Settings API] update failure'
 }
 
-export const load = () => {
-  return async (dispatch: any) => {
-    dispatch(loading());
-    const authMode = await settings.getAuthMode();
-    const biometricsAvailable = true;
-    const biometricType = 'touchID';
-    return dispatch(loadSuccess({ authMode, biometricsAvailable, biometricType }));
-  };
-};
 
 export const loading = () => ({
   type: SettingsActionTypes.loading
@@ -38,16 +28,6 @@ export const loadFailure = (error: Error) => ({
   type: SettingsActionTypes.loadFailure,
   error
 });
-
-export const update = (payload: SettingsPayload) => {
-  return async (dispatch: any) => {
-    dispatch(updating());
-    if (payload.authMode !== undefined) {
-      await settings.setAuthMode(payload.authMode);
-    }
-    return dispatch(updateSuccess(payload));
-  };
-};
 
 export const updating = () => ({
   type: SettingsActionTypes.updating

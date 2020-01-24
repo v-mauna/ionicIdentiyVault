@@ -8,17 +8,13 @@ import {
   IonicNativeAuthPlugin
 } from '@ionic-enterprise/identity-vault';
 import { isPlatform } from '@ionic/react';
-import { Observable, Subject } from 'rxjs';
 import { settings } from './settings.service';
 import { browserAuthPlugin } from './browser-auth.plugin';
+import { store } from '../store';
+import { unauthorized } from '../store/auth-actions';
 
 export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
-  private _vaultLocked: Subject<boolean>;
   private email: string | undefined;
-
-  get vaultLocked(): Observable<boolean>  {
-    return this._vaultLocked.asObservable();
-  }
 
   constructor() {
     super(
@@ -31,7 +27,6 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
         hideScreenOnBackground: true
       }
     );
-    this._vaultLocked = new Subject();
   }
 
   async login(session: DefaultSession): Promise<void> {
@@ -89,7 +84,6 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
 
   onVaultUnlocked(config: VaultConfig): void {
     console.log('The vault was unlocked with config: ', config);
-    this._vaultLocked.next(false);
   }
 
   // TODO: Create a PIN dialog
@@ -107,8 +101,7 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
   // }
 
   onVaultLocked() {
-    console.log('Vault Locked');
-    this._vaultLocked.next(true);
+    store.dispatch(unauthorized());
   }
 
   getPlugin(): IonicNativeAuthPlugin {

@@ -4,8 +4,6 @@ import { createStore, CombinedState, applyMiddleware } from 'redux';
 
 import rootReducer from './reducers';
 import { TeaCategory } from '../models';
-import { identity } from '../services/identity.service';
-import { unauthorized } from './auth-actions';
 
 const loggerMiddleware = createLogger();
 
@@ -46,7 +44,3 @@ export const getBiometricType = (state: CombinedState<{ auth: any }>) => {
 export const getHasSession = (state: CombinedState<{ auth: any }>) => {
   return state.auth.hasSession;
 };
-
-identity.vaultLocked.subscribe(() => {
-  store.dispatch(unauthorized());
-});

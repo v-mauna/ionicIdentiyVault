@@ -13,7 +13,7 @@ import {
 } from '@ionic/react';
 import { useStore } from 'react-redux';
 import UnlockApplication from "../containers/UnlockApplication";
-import { login } from '../store/auth-actions';
+import { login } from '../store/auth-actions.async';
 import { getAuthError } from '../store';
 
 const Login: React.FC = () => {

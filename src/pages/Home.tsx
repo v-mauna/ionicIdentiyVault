@@ -5,7 +5,7 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitl
 import { logOut } from 'ionicons/icons';
 
 import TeaCategories from '../containers/TeaCatgories';
-import { logout } from '../store/auth-actions';
+import { logout } from '../store/auth-actions.async';
 
 const Home: React.FC = () => {
   const history = useHistory();

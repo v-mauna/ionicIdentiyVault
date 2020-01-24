@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useStore } from 'react-redux';
 
 import { AuthStatus } from '../store/auth-actions';
-import { load as loadSettings } from '../store/settings-actions';
+import { load as loadSettings } from '../store/settings-actions.async';
 import { load as loadTeaCategories } from '../store/tea-category-actions';
 import { getAuthStatus } from '../store';
 

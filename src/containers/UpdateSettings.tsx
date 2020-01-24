@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import AuthControlPanel from '../components/AuthControlPanel';
 import { getAuthMode, getBiometricType } from '../store';
 import { AuthMode } from '@ionic-enterprise/identity-vault';
-import { update } from '../store/settings-actions';
-import { updateAuthMode, lock, logout } from '../store/auth-actions';
+import { update } from '../store/settings-actions.async';
+import { updateAuthMode, lock, logout } from '../store/auth-actions.async';
 
 const mapStateToProps = (state: any) => ({
   authMode: getAuthMode(state),

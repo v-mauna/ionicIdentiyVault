@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import UnlockPanel from '../components/UnlockPanel';
-import { unlock } from '../store/auth-actions';
+import { unlock } from '../store/auth-actions.async';
 import { getHasSession, getBiometricType, getVaultAuthMode } from '../store';
 
 const mapStateToProps = (state: any) => ({

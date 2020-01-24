@@ -28,7 +28,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/styles.css';
-import { load as loadAuth } from './store/auth-actions';
+import { load as loadAuth } from './store/auth-actions.async';
 import AuthMonitor from './components/AuthMonitor';
 
 const { StatusBar, SplashScreen } = Plugins;

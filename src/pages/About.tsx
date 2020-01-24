@@ -4,7 +4,7 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitl
 import { logOut } from 'ionicons/icons';
 
 import AboutInfo from '../containers/AboutInfo';
-import { logout } from '../store/auth-actions';
+import { logout } from '../store/auth-actions.async';
 
 const About: React.FC = () => {
   const store = useStore();
