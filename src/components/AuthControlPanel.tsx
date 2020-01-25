@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonToggle } from '@ionic/react';
 import { lock } from 'ionicons/icons';
-import { useStore } from 'react-redux';
 
 type AuthControlPanelProps = {
   biometricType: BiometricType;
