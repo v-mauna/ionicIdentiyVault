@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
-import { home, informationCircle, switcher } from 'ionicons/icons';
+import { homeOutline, informationCircleOutline, optionsOutline } from 'ionicons/icons';
 import Home from './Home';
 import About from './About';
 import Settings from './Settings';
@@ -19,15 +19,15 @@ const Tabs: React.FC = () => (
     </IonRouterOutlet>
     <IonTabBar slot="bottom">
       <IonTabButton tab="home" href="/tabs/home">
-        <IonIcon icon={home} />
+        <IonIcon icon={homeOutline} />
         <IonLabel>Home</IonLabel>
       </IonTabButton>
       <IonTabButton tab="about" href="/tabs/about">
-        <IonIcon icon={informationCircle} />
+        <IonIcon icon={informationCircleOutline} />
         <IonLabel>About</IonLabel>
       </IonTabButton>
       <IonTabButton tab="settings" href="/tabs/settings">
-        <IonIcon icon={switcher} />
+        <IonIcon icon={optionsOutline} />
         <IonLabel>Settings</IonLabel>
       </IonTabButton>
     </IonTabBar>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { useStore } from 'react-redux';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { logOut } from 'ionicons/icons';
+import { logOutOutline } from 'ionicons/icons';
 
 import TeaCategories from '../containers/TeaCatgories';
 import { logout } from '../store/auth-actions.async';
@@ -18,11 +18,11 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar>
           <IonTitle>Tea Categories</IonTitle>
           <IonButtons slot="primary">
             <IonButton icon-only onClick={handleLogout}>
-              <IonIcon icon={logOut}></IonIcon>
+              <IonIcon icon={logOutOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>

@@ -43,7 +43,7 @@ const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
           </IonButtons>
@@ -57,7 +57,7 @@ const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
 
       <IonFooter>
         <IonToolbar>
-          <IonButton expand="full" onClick={handleSaveClicked}>Save</IonButton>
+          <IonButton fill="outline" expand="block" onClick={handleSaveClicked}>Save</IonButton>
         </IonToolbar>
       </IonFooter>
     </IonPage>

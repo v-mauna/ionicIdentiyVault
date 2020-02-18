@@ -20,7 +20,7 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
     super(
       { ready: () => Promise.resolve() },
       {
-        restoreSessionOnReady: false,
+        restoreSessionOnReady: true,
         unlockOnReady: false,
         unlockOnAccess: true,
         lockAfter: 5000,
@@ -65,7 +65,6 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
     }
   }
 
-  // TODO: Anything that needs to be monitored for a state change needs to be monitored from the store.
   onSessionRestored(session: DefaultSession) {
     this.email = session.username;
   }

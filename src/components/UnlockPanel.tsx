@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonIcon } from '@ionic/react';
-import { unlock } from 'ionicons/icons';
+import { lockOpenOutline } from 'ionicons/icons';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 
 type TeaCategoryItemProps = {
@@ -30,7 +30,7 @@ const UnlockPanel: React.FC<TeaCategoryItemProps> = ({ authMode, bioType, hasSes
     return (
       <>
         <div className="unlock-app ion-text-center" onClick={onUnlock}>
-          <IonIcon icon={unlock}></IonIcon>
+          <IonIcon icon={lockOpenOutline}></IonIcon>
           <div>{prompt}</div>
         </div>
       </>

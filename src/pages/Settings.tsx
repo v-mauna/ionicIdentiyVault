@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStore } from 'react-redux';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { logOut } from 'ionicons/icons';
+import { logOutOutline } from 'ionicons/icons';
 
 import UpdateSettings from '../containers/UpdateSettings';
 import { logout } from '../store/auth-actions.async';
@@ -14,11 +14,11 @@ const Settings: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar>
           <IonTitle>Settings</IonTitle>
           <IonButtons slot="primary">
             <IonButton icon-only onClick={handleLogout}>
-              <IonIcon icon={logOut}></IonIcon>
+              <IonIcon icon={logOutOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>

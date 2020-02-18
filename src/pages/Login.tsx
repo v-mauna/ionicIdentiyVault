@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -12,7 +12,7 @@ import {
   IonButton
 } from '@ionic/react';
 import { useStore } from 'react-redux';
-import UnlockApplication from "../containers/UnlockApplication";
+import UnlockApplication from '../containers/UnlockApplication';
 import { login } from '../store/auth-actions.async';
 import { getAuthError } from '../store';
 
@@ -22,10 +22,14 @@ const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState();
   const store = useStore();
 
+  const loginButtonStyle: CSSProperties = {
+    marginTop: '3em'
+  };
+
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
       const error = getAuthError(store.getState());
-      setErrorMessage(error? error.message : '');
+      setErrorMessage(error ? error.message : '');
     });
 
     return unsubscribe;
@@ -40,7 +44,7 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar>
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -56,7 +60,7 @@ const Login: React.FC = () => {
           </IonItem>
         </IonList>
 
-        <IonButton expand="full" onClick={handleSignIn}>
+        <IonButton expand="block" fill="outline" style={loginButtonStyle} onClick={handleSignIn}>
           Sign In
         </IonButton>
         <div className="error-message">{errorMessage}</div>

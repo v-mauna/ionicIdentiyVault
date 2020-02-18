@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonToggle } from '@ionic/react';
-import { lock } from 'ionicons/icons';
+import { lockClosedOutline } from 'ionicons/icons';
 
 type AuthControlPanelProps = {
   biometricType: BiometricType;
@@ -74,8 +74,8 @@ const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
       </IonItem>
       <IonItem>
         <IonLabel>Lock</IonLabel>
-        <IonButton onClick={onLock}>
-          <IonIcon icon={lock}></IonIcon>
+        <IonButton onClick={onLock} fill="outline">
+          <IonIcon icon={lockClosedOutline}></IonIcon>
         </IonButton>
       </IonItem>
     </IonList>
