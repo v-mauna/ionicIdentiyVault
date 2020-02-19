@@ -68,8 +68,9 @@ export const lock = () => {
 
 export const unlock = () => {
   return async (dispatch: any) => {
-    await identity.restoreSession();
-    return dispatch(load());
+    if (await identity.restoreSession()) {
+      return dispatch(load());
+    }
   };
 };
 
