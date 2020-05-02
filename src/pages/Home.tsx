@@ -20,14 +20,14 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Tea Categories</IonTitle>
-          <IonButtons slot="primary">
+          <IonButtons slot='primary'>
             <IonButton icon-only onClick={handleLogout}>
               <IonIcon icon={logOutOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent className='ion-padding'>
         <TeaCategories onCategoryClick={handleCategoryClick}></TeaCategories>
       </IonContent>
     </IonPage>

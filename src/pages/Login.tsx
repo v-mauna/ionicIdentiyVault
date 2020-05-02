@@ -17,9 +17,9 @@ import { login } from '../store/auth-actions.async';
 import { getAuthError } from '../store';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [errorMessage, setErrorMessage] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const store = useStore();
 
   const loginButtonStyle: CSSProperties = {
@@ -37,6 +37,8 @@ const Login: React.FC = () => {
 
   const handleSignIn = () => {
     store.dispatch<any>(login({ email, password }));
+    setPassword('');
+    setEmail('');
   };
   const handleEmailChange = (evt: CustomEvent) => setEmail(evt.detail.value);
   const handlePasswordChange = (evt: CustomEvent) => setPassword(evt.detail.value);
@@ -48,22 +50,22 @@ const Login: React.FC = () => {
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent className='ion-padding'>
         <IonList>
           <IonItem>
-            <IonLabel position="floating">E-Mail Address</IonLabel>
+            <IonLabel position='floating'>E-Mail Address</IonLabel>
             <IonInput value={email} onIonChange={handleEmailChange}></IonInput>
           </IonItem>
           <IonItem>
-            <IonLabel position="floating">Password</IonLabel>
-            <IonInput type="password" value={password} onIonChange={handlePasswordChange}></IonInput>
+            <IonLabel position='floating'>Password</IonLabel>
+            <IonInput type='password' value={password} onIonChange={handlePasswordChange}></IonInput>
           </IonItem>
         </IonList>
 
-        <IonButton expand="block" fill="outline" style={loginButtonStyle} onClick={handleSignIn}>
+        <IonButton expand='block' fill='outline' style={loginButtonStyle} onClick={handleSignIn}>
           Sign In
         </IonButton>
-        <div className="error-message">{errorMessage}</div>
+        <div className='error-message'>{errorMessage}</div>
         <UnlockApplication></UnlockApplication>
       </IonContent>
     </IonPage>

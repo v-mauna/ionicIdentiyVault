@@ -25,7 +25,7 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
   const [prompt, setPrompt] = useState(setPasscode ? 'Enter PIN' : 'Enter PIN to Unlock');
   const [pin, setPin] = useState('');
   const [verifyPin, setVerifyPin] = useState('');
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const store = useStore();
 
@@ -88,7 +88,7 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
         <IonToolbar>
           <IonTitle>{title}</IonTitle>
           {!setPasscode && (
-            <IonButtons slot="primary">
+            <IonButtons slot='primary'>
               <IonButton icon-only onClick={() => store.dispatch(cancelPIN())}>
                 <IonIcon icon={close}></IonIcon>
               </IonButton>
@@ -97,7 +97,7 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding ion-text-center">
+      <IonContent className='ion-padding ion-text-center'>
         <IonLabel>
           <div style={promptStyle}>{prompt}</div>
         </IonLabel>
@@ -112,11 +112,11 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
       <IonFooter>
         <IonGrid style={gridStyle}>
           <IonRow>
-            {[1, 2, 3].map(n => (
+            {[1, 2, 3].map((n) => (
               <IonCol key={n}>
                 <IonButton
-                  fill="outline"
-                  expand="block"
+                  fill='outline'
+                  expand='block'
                   onClick={() => append(n)}
                   disabled={pin.length === maxPinLength}
                 >
@@ -126,11 +126,11 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
             ))}
           </IonRow>
           <IonRow>
-            {[4, 5, 6].map(n => (
+            {[4, 5, 6].map((n) => (
               <IonCol key={n}>
                 <IonButton
-                  fill="outline"
-                  expand="block"
+                  fill='outline'
+                  expand='block'
                   onClick={() => append(n)}
                   disabled={pin.length === maxPinLength}
                 >
@@ -140,11 +140,11 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
             ))}
           </IonRow>
           <IonRow>
-            {[7, 8, 9].map(n => (
+            {[7, 8, 9].map((n) => (
               <IonCol key={n}>
                 <IonButton
-                  fill="outline"
-                  expand="block"
+                  fill='outline'
+                  expand='block'
                   onClick={() => append(n)}
                   disabled={pin.length === maxPinLength}
                 >
@@ -155,20 +155,20 @@ const PinEditor: React.FC<PinEditorProps> = ({ setPasscode }) => {
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonButton fill="outline" color="tertiary" expand="block" onClick={deleteInput} disabled={!pin.length}>
+              <IonButton fill='outline' color='tertiary' expand='block' onClick={deleteInput} disabled={!pin.length}>
                 Delete
               </IonButton>
             </IonCol>
             <IonCol>
-              <IonButton fill="outline" expand="block" onClick={() => append(0)} disabled={pin.length === maxPinLength}>
+              <IonButton fill='outline' expand='block' onClick={() => append(0)} disabled={pin.length === maxPinLength}>
                 0
               </IonButton>
             </IonCol>
             <IonCol>
               <IonButton
-                fill="outline"
-                color="secondary"
-                expand="block"
+                fill='outline'
+                color='secondary'
+                expand='block'
                 onClick={enter}
                 disabled={pin.length < minPinLength}
               >
