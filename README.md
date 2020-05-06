@@ -39,11 +39,11 @@ The home page contains a list of tea categories. Tapping on a tea category allow
 
 ### About
 
-The about page displays some based information about the application as well as the current state of the vault.  This may be different than the settings for the vault as the user could (for example) set the vault to use biometrics even if the current device does not support it. In this case, the settings could specify Biometrics and Passcode, but the mode here would be specified as Passcode Only.
+The about page displays some based information about the application as well as the current state of the vault. This may be different than the settings for the vault as the user could (for example) set the vault to use biometrics even if the current device does not support it. In this case, the settings could specify Biometrics and Passcode, but the mode here would be specified as Passcode Only.
 
 ### Settings
 
-This page allows the user to specify exactly how the vault shoud be set up. There are three options:
+This page allows the user to specify exactly how the vault should be set up. There are three options:
 
 - Biometrics
 - Passcode (choosing this will ask for a passcode to use)
@@ -63,7 +63,7 @@ The page components are the main components that are routed to. Outside of some 
 
 #### Standard Components
 
-The standard components are generally in charge of displaying data to the user and allowing the user to interact with the data on the pages. There is one notable exception. The `AuthMonitor` component, as the name implies, monitors the `auth` state and redicts the user either to the login page or the application's main page when that state changes in a significant manner.j
+The standard components are generally in charge of displaying data to the user and allowing the user to interact with the data on the pages. There is one notable exception. The `AuthMonitor` component, as the name implies, monitors the `auth` state and redicts the user either to the login page or the application's main page when that state changes in a significant manner.
 
 #### Container Components
 
@@ -77,7 +77,7 @@ This store is the source of all truth for the application, and should be the onl
 - `settings`: information pertaining to the user's desired vault configuration, primarily the _desired_ `authMode` (the _actual_ `authMode` is part of the `auth` state)
 - `teaCategories`: the current tea category data
 
-The store is really the "brains" of the whole operation, and manages the application. When the components require data, they get that data from the store. When the user does something, an action is dispatched to the store and the store handles the tasks required to fulfill that action. 
+The store is really the "brains" of the whole operation, and manages the application. When the components require data, they get that data from the store. When the user does something, an action is dispatched to the store and the store handles the tasks required to fulfill that action.
 
 #### Application Startup
 
