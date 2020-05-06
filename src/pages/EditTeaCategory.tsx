@@ -33,7 +33,7 @@ const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
     setCategory({ ...category });
   };
 
-  const handleSaveClicked = () => {
+  const updateCategory = () => {
     if (category) {
       dispatch(update(category));
     }
@@ -57,7 +57,9 @@ const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
 
       <IonFooter>
         <IonToolbar>
-          <IonButton fill="outline" expand="block" onClick={handleSaveClicked}>Save</IonButton>
+          <IonButton fill="outline" expand="block" onClick={updateCategory}>
+            Save
+          </IonButton>
         </IonToolbar>
       </IonFooter>
     </IonPage>
