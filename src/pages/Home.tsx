@@ -3,7 +3,7 @@ import { useStore } from 'react-redux';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { logOutOutline } from 'ionicons/icons';
 
-import TeaCategories from '../containers/TeaCatgories';
+import TeaCategoryList from '../components/TeaCategoryList';
 import { logout } from '../store/auth-actions.async';
 
 const Home: React.FC = () => {
@@ -16,15 +16,15 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Tea Categories</IonTitle>
-          <IonButtons slot='primary'>
+          <IonButtons slot="primary">
             <IonButton icon-only onClick={handleLogout}>
               <IonIcon icon={logOutOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className='ion-padding'>
-        <TeaCategories></TeaCategories>
+      <IonContent className="ion-padding">
+        <TeaCategoryList></TeaCategoryList>
       </IonContent>
     </IonPage>
   );

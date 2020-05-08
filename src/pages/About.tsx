@@ -3,7 +3,7 @@ import { useStore } from 'react-redux';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { logOutOutline } from 'ionicons/icons';
 
-import AboutInfo from '../containers/AboutInfo';
+import AboutThisApp from '../components/AboutThisApp';
 import { logout } from '../store/auth-actions.async';
 
 const About: React.FC = () => {
@@ -26,7 +26,7 @@ const About: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-text-center ion-padding">
-        <AboutInfo></AboutInfo>
+        <AboutThisApp></AboutThisApp>
       </IonContent>
     </IonPage>
   );

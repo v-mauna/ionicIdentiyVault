@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { IonList, IonItem, IonLabel, IonInput, IonTextarea } from '@ionic/react';
 
 import { TeaCategory } from '../models';
+import { getTeaCategory } from '../store';
 
 type TeaCategoryEditorProps = {
   category: TeaCategory;
   onCategoryChange: (category: TeaCategory) => void;
 };
 
-const TeaCategoryEditor: React.FC<TeaCategoryEditorProps> = ({category, onCategoryChange}) => {
+const TeaCategoryEditor: React.FC<TeaCategoryEditorProps> = ({ category, onCategoryChange }) => {
   const [name, setName] = useState(category.name);
   const [description, setDescription] = useState(category.description);
 
@@ -19,7 +21,7 @@ const TeaCategoryEditor: React.FC<TeaCategoryEditorProps> = ({category, onCatego
       name: evt.detail.value,
       description
     });
-  }
+  };
 
   const handleDescriptionChanged = (evt: CustomEvent) => {
     setDescription(evt.detail.value);
@@ -28,7 +30,7 @@ const TeaCategoryEditor: React.FC<TeaCategoryEditorProps> = ({category, onCatego
       name,
       description: evt.detail.value
     });
-  }
+  };
 
   return (
     <IonList>
@@ -42,6 +44,10 @@ const TeaCategoryEditor: React.FC<TeaCategoryEditorProps> = ({category, onCatego
       </IonItem>
     </IonList>
   );
-}
+};
 
-export default TeaCategoryEditor;
+const mapStateToProps = (state: any, props: { id: number }) => ({
+  category: getTeaCategory(state, props.id)
+});
+
+export default connect(mapStateToProps)(TeaCategoryEditor);

@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { IonIcon } from '@ionic/react';
-import { lockOpenOutline } from 'ionicons/icons';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
+import { lockOpenOutline } from 'ionicons/icons';
+
+import { getHasSession, getBiometricType, getVaultAuthMode } from '../store';
+import { unlock } from '../store/auth-actions.async';
 
 type TeaCategoryItemProps = {
   authMode: AuthMode;
@@ -40,4 +44,16 @@ const UnlockPanel: React.FC<TeaCategoryItemProps> = ({ authMode, bioType, hasSes
   return <> </>;
 };
 
-export default UnlockPanel;
+const mapStateToProps = (state: any) => ({
+  authMode: getVaultAuthMode(state),
+  bioType: getBiometricType(state),
+  hasSession: getHasSession(state)
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  onUnlock: () => {
+    dispatch(unlock());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UnlockPanel);

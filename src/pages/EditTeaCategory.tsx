@@ -12,7 +12,7 @@ import {
 } from '@ionic/react';
 import { RouteComponentProps, useHistory } from 'react-router';
 
-import UpdateTeaCategory from '../containers/UpdateTeaCategory';
+import TeaCategoryEditor from '../components/TeaCategoryEditor';
 import { TeaCategory } from '../models';
 import { useDispatch } from 'react-redux';
 import { update } from '../store/tea-category-actions';
@@ -52,7 +52,7 @@ const EditTeaCategory: React.FC<EditTeaCategoryProps> = ({ match }) => {
       </IonHeader>
 
       <IonContent>
-        <UpdateTeaCategory id={categoryId} onCategoryChange={handleCategoryChange}></UpdateTeaCategory>
+        <TeaCategoryEditor id={categoryId} onCategoryChange={handleCategoryChange}></TeaCategoryEditor>
       </IonContent>
 
       <IonFooter>

@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { AuthMode } from '@ionic-enterprise/identity-vault';
+
+import { getEMail, getBiometricType, getVaultAuthMode } from '../store';
 
 type AboutProps = {
   email: string;
@@ -13,7 +17,7 @@ const AboutThisApp: React.FC<AboutProps> = ({ email, authMode, bioType }) => {
 
   return (
     <>
-      <img src='assets/img/appicon.svg' alt='[Ionic Logo]' style={logoStyle} />
+      <img src="assets/img/appicon.svg" alt="[Ionic Logo]" style={logoStyle} />
       <h1>Ionic Identity Vault</h1>
       <h2>Demo Application</h2>
       <h3>Identity Vault Version 4.1.0</h3>
@@ -24,4 +28,10 @@ const AboutThisApp: React.FC<AboutProps> = ({ email, authMode, bioType }) => {
   );
 };
 
-export default AboutThisApp;
+const mapStateToProps = (state: any) => ({
+  email: getEMail(state),
+  authMode: AuthMode[getVaultAuthMode(state)],
+  bioType: getBiometricType(state)
+});
+
+export default connect(mapStateToProps)(AboutThisApp);

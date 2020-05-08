@@ -1,14 +1,17 @@
 import React from 'react';
-import PinEditor from './PinEditor';
+import { connect } from 'react-redux';
 import { IonModal } from '@ionic/react';
+
+import { getShowPinDialog, getIsSetApplicationPinMode } from '../store';
+import PinEditor from './PinEditor';
 
 type PinEditorModalProps = {
   setPasscode: boolean;
   isOpen: boolean;
-  onDidDismiss: () => void 
+  onDidDismiss: () => void;
 };
 
-const PinEditorModal: React.FC<PinEditorModalProps> = ({setPasscode, isOpen, onDidDismiss}) => {
+const PinEditorModal: React.FC<PinEditorModalProps> = ({ setPasscode, isOpen, onDidDismiss }) => {
   return (
     <>
       <IonModal isOpen={isOpen} onDidDismiss={onDidDismiss}>
@@ -18,4 +21,13 @@ const PinEditorModal: React.FC<PinEditorModalProps> = ({setPasscode, isOpen, onD
   );
 };
 
-export default PinEditorModal;
+const mapStateToProps = (state: any) => ({
+  isOpen: getShowPinDialog(state),
+  setPasscode: getIsSetApplicationPinMode(state)
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  onDidDismiss: () => console.log('did dismiss...')
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PinEditorModal);

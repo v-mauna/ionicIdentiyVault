@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonToggle } from '@ionic/react';
 import { lockClosedOutline } from 'ionicons/icons';
+
+import { getAuthMode, getBiometricType } from '../store';
+import { update } from '../store/settings-actions.async';
+import { updateAuthMode, lock } from '../store/auth-actions.async';
 
 type AuthControlPanelProps = {
   biometricType: BiometricType;
@@ -10,12 +15,7 @@ type AuthControlPanelProps = {
   onLock: () => void;
 };
 
-const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
-  authMode,
-  biometricType,
-  onAuthModeChanged,
-  onLock
-}) => {
+const AuthControlPanel: React.FC<AuthControlPanelProps> = ({ authMode, biometricType, onAuthModeChanged, onLock }) => {
   const [biometrics, setBiometrics] = useState<boolean>(false);
   const [passcode, setPasscode] = useState<boolean>(false);
   const [secureStorge, setSecureStorge] = useState<boolean>(false);
@@ -82,4 +82,19 @@ const AuthControlPanel: React.FC<AuthControlPanelProps> = ({
   );
 };
 
-export default AuthControlPanel;
+const mapStateToProps = (state: any) => ({
+  authMode: getAuthMode(state),
+  biometricType: getBiometricType(state)
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  onAuthModeChanged: (authMode: AuthMode) => {
+    dispatch(updateAuthMode({ authMode }));
+    dispatch(update({ authMode }));
+  },
+  onLock: () => {
+    dispatch(lock());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthControlPanel);
