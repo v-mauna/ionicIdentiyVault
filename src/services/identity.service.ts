@@ -20,11 +20,16 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
     super(
       { ready: () => Promise.resolve() },
       {
-        restoreSessionOnReady: true,
+        androidPromptTitle: 'Identity Vault Demo',
+        androidPromptSubtitle: 'Demo All the Things!',
+        androidPromptDescription: 'You need to unlock me',
+        restoreSessionOnReady: false,
         unlockOnReady: false,
         unlockOnAccess: true,
         lockAfter: 5000,
-        hideScreenOnBackground: true
+        hideScreenOnBackground: true,
+        allowSystemPinFallback: true,
+        shouldClearVaultAfterTooManyFailedAttempts: false
       }
     );
   }
@@ -85,17 +90,25 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
     console.log('The vault was unlocked with config: ', config);
   }
 
-  onPasscodeRequest(isPasscodeSetRequest: boolean): Promise<string> {
+  async onPasscodeRequest(isPasscodeSetRequest: boolean): Promise<string> {
     if (isPasscodeSetRequest) {
       store.dispatch(setApplicationPIN());
     } else {
       store.dispatch(unlockApplicationWithPIN());
     }
-    return this.waitForPasscode();
+    const pin = await this.waitForPasscode();
+    if (!pin) {
+      // eslint-disable-next-line no-throw-literal
+      throw {
+        code: VaultErrorCodes.UserCanceledInteraction,
+        message: 'User has canceled supplying the application passcode'
+      };
+    }
+    return pin;
   }
 
   private waitForPasscode(): Promise<string> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const unsub = store.subscribe(() => {
         const state = store.getState();
         if (!getShowPinDialog(state)) {

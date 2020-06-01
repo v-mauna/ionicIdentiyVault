@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "cs-demo-iv-react",
+  "appId": "io.ionic.csidentityvalutdemo.react",
+  "appName": "CS Demo IV (React)",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

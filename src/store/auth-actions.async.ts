@@ -10,7 +10,8 @@ import {
   loggingOut,
   logoutSuccess,
   sessionCleared,
-  sessionSet
+  sessionSet,
+  lock
 } from './auth-actions';
 
 export interface AuthPayload {
@@ -22,6 +23,7 @@ export const load = () => {
   return async (dispatch: any) => {
     dispatch(loading());
     const email = await identity.getEmail();
+    console.log(email);
     dispatch(loadAuthMode());
     return dispatch(loadSuccess({ email }));
   };
@@ -60,9 +62,10 @@ export const logout = () => {
   };
 };
 
-export const lock = () => {
-  return async () => {
+export const lockSession = () => {
+  return async (dispatch: any) => {
     await identity.lockOut();
+    return dispatch(lock());
   };
 };
 

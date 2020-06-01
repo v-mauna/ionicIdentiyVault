@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package io.ionic.csidentityvalutdemo.react;
 
 import android.os.Bundle;
 

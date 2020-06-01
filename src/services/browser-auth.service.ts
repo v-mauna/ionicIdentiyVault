@@ -1,5 +1,11 @@
 import { Plugins } from '@capacitor/core';
-import { BiometricType, IdentityVault, PluginConfiguration, AuthMode } from '@ionic-enterprise/identity-vault';
+import {
+  BiometricType,
+  IdentityVault,
+  PluginConfiguration,
+  AuthMode,
+  SupportedBiometricType
+} from '@ionic-enterprise/identity-vault';
 
 const { Storage } = Plugins;
 
@@ -37,6 +43,10 @@ export class BrowserAuthService implements IdentityVault {
   async isInUse(): Promise<boolean> {
     const { value } = await Storage.get({ key: 'session' });
     return !!value;
+  }
+
+  getAvailableHardware(): Promise<SupportedBiometricType[]> {
+    return Promise.resolve([]);
   }
 
   getConfig(): Promise<PluginConfiguration> {

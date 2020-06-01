@@ -6,7 +6,7 @@ import { lockClosedOutline } from 'ionicons/icons';
 
 import { getAuthMode, getBiometricType } from '../store';
 import { update } from '../store/settings-actions.async';
-import { updateAuthMode, lock } from '../store/auth-actions.async';
+import { updateAuthMode, lockSession } from '../store/auth-actions.async';
 
 type AuthControlPanelProps = {
   biometricType: BiometricType;
@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(update({ authMode }));
   },
   onLock: () => {
-    dispatch(lock());
+    dispatch(lockSession());
   }
 });
 

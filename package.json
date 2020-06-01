@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "~2.0.2",
+    "@capacitor/android": "~2.1.0",
     "@capacitor/core": "~2.0.2",
-    "@capacitor/ios": "~2.0.2",
-    "@ionic-enterprise/identity-vault": "~4.1.0",
+    "@capacitor/ios": "~2.1.0",
+    "@ionic-enterprise/identity-vault": "~4.2.0",
     "@ionic/react": "~5.1.0",
     "@ionic/react-router": "~5.1.0",
     "@testing-library/jest-dom": "~5.5.0",

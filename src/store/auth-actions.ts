@@ -43,6 +43,8 @@ export enum AuthActionTypes {
   sessionSet = '[Identity API] session set',
   sessionCleared = '[Identity API] session cleared',
 
+  lock = '[Identity API] session locked',
+
   setApplicationPIN = '[Identity API] set application pin',
   unlockApplicationWithPIN = '[Identity API] unlock with pin',
   enterPIN = '[PIN Editor] enter pin',
@@ -94,6 +96,10 @@ export const sessionSet = (payload: SessionPayload) => ({
 });
 export const sessionCleared = () => ({
   type: AuthActionTypes.sessionCleared
+});
+
+export const lock = () => ({
+  type: AuthActionTypes.lock
 });
 
 export const setApplicationPIN = () => ({

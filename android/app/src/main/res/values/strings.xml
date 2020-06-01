@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">cs-demo-iv-react</string>
-    <string name="title_activity_main">cs-demo-iv-react</string>
-    <string name="package_name">io.ionic.starter</string>
+    <string name="app_name">CS Demo IV (React)</string>
+    <string name="title_activity_main">CS Demo IV (React)</string>
+    <string name="package_name">io.ionic.csidentityvalutdemo.react</string>
     <string name="custom_url_scheme">io.ionic.starter</string>
 </resources>

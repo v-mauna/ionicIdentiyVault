@@ -1,5 +1,5 @@
 import { AuthActionTypes, AuthStatus } from '../auth-actions';
-import { AuthMode, BiometricType } from '@ionic-enterprise/identity-vault';
+import { AuthMode, BiometricType, VaultErrorCodes } from '@ionic-enterprise/identity-vault';
 
 interface AuthState {
   loading: boolean;
@@ -89,6 +89,12 @@ const auth = (
         email: undefined
       };
 
+    case AuthActionTypes.lock:
+      return {
+        ...state,
+        status: AuthStatus.LoggedOut
+      };
+
     case AuthActionTypes.setApplicationPIN:
       return {
         ...state,
@@ -100,7 +106,8 @@ const auth = (
       return {
         ...state,
         showPinDialog: true,
-        setApplicationPin: false
+        setApplicationPin: false,
+        error: undefined
       };
 
     case AuthActionTypes.enterPIN:
@@ -114,7 +121,11 @@ const auth = (
       return {
         ...state,
         showPinDialog: false,
-        enteredPIN: undefined
+        enteredPIN: undefined,
+        error: {
+          code: VaultErrorCodes.UserCanceledInteraction,
+          message: 'User has canceled supplying the application passcode'
+        }
       };
 
     default:
