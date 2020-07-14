@@ -6,5 +6,5 @@ import teaCategories from './tea-categories';
 export default combineReducers({
   auth,
   settings,
-  teaCategories
+  teaCategories,
 });

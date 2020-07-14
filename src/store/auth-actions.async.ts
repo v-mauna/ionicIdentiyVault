@@ -11,7 +11,7 @@ import {
   logoutSuccess,
   sessionCleared,
   sessionSet,
-  lock
+  lock,
 } from './auth-actions';
 
 export interface AuthPayload {
@@ -34,7 +34,9 @@ const loadAuthMode = () => {
     const authMode = await identity.getAuthMode();
     const biometricType = await identity.getBiometricType();
     const hasSession = await identity.hasStoredSession();
-    return dispatch(loadAuthModeSuccess({ authMode, biometricType, hasSession }));
+    return dispatch(
+      loadAuthModeSuccess({ authMode, biometricType, hasSession }),
+    );
   };
 };
 

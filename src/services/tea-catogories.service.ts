@@ -13,8 +13,14 @@ export class TeaCategoriesAPI {
   }
 
   async update(category: TeaCategory): Promise<TeaCategory> {
-    let opt = await this.addHeaders({ method: 'POST', body: JSON.stringify(category) });
-    const res = await fetch(`${environment.dataService}/tea-categories/${category.id}`, opt);
+    let opt = await this.addHeaders({
+      method: 'POST',
+      body: JSON.stringify(category),
+    });
+    const res = await fetch(
+      `${environment.dataService}/tea-categories/${category.id}`,
+      opt,
+    );
     this.checkStatus(res);
     return res.ok ? await res.json() : {};
   }
@@ -22,9 +28,11 @@ export class TeaCategoriesAPI {
   private async addHeaders(opt: RequestInit): Promise<RequestInit> {
     const token = await identity.getToken();
     let headers: HeadersInit = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
-    headers = token ? { ...headers, Authorization: `Bearer ${token}` } : headers;
+    headers = token
+      ? { ...headers, Authorization: `Bearer ${token}` }
+      : headers;
     return { ...opt, headers };
   }
 

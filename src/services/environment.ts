@@ -1,3 +1,3 @@
 export const environment = {
-  dataService: 'https://cs-demo-api.herokuapp.com'
+  dataService: 'https://cs-demo-api.herokuapp.com',
 };

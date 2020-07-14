@@ -3,23 +3,20 @@ import { SettingsActionTypes } from '../settings-actions';
 
 interface SettingsState {
   loading: boolean;
-  authMode?: AuthMode,
-  biometricsAvailable?:boolean,
-  biometricType?: BiometricType,
-  error?: Error
+  authMode?: AuthMode;
+  biometricsAvailable?: boolean;
+  biometricType?: BiometricType;
+  error?: Error;
 }
 
-const settings = (
-  state: SettingsState = { loading: false },
-  action: any
-) => {
+const settings = (state: SettingsState = { loading: false }, action: any) => {
   switch (action.type) {
     case SettingsActionTypes.loading:
     case SettingsActionTypes.updating:
       return {
         ...state,
         loading: true,
-        error: undefined
+        error: undefined,
       };
 
     case SettingsActionTypes.loadSuccess:
@@ -28,16 +25,25 @@ const settings = (
         loading: false,
         authMode: action.payload.authMode,
         biometricsAvailable: action.payload.biometricsAvailable,
-        biometricType: action.payload.biometricType
+        biometricType: action.payload.biometricType,
       };
 
     case SettingsActionTypes.updateSuccess:
       return {
         ...state,
         loading: false,
-        authMode: action.payload.authMode === undefined ? state.authMode : action.payload.authMode,
-        biometricsAvailable: action.payload.biometricsAvailable === undefined ? state.biometricsAvailable : action.payload.biometricsAvailable,
-        biometricType: action.payload.biometricType === undefined ? state.biometricType : action.payload.biometricType,
+        authMode:
+          action.payload.authMode === undefined
+            ? state.authMode
+            : action.payload.authMode,
+        biometricsAvailable:
+          action.payload.biometricsAvailable === undefined
+            ? state.biometricsAvailable
+            : action.payload.biometricsAvailable,
+        biometricType:
+          action.payload.biometricType === undefined
+            ? state.biometricType
+            : action.payload.biometricType,
       };
 
     case SettingsActionTypes.loadFailure:
@@ -45,7 +51,7 @@ const settings = (
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error,
       };
     default:
       return state;

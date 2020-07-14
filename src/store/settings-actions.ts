@@ -13,30 +13,29 @@ export enum SettingsActionTypes {
 
   updating = '[Settings Editor] updating settings',
   updateSuccess = '[Settings API] update success',
-  updateFailure = '[Settings API] update failure'
+  updateFailure = '[Settings API] update failure',
 }
 
-
 export const loading = () => ({
-  type: SettingsActionTypes.loading
+  type: SettingsActionTypes.loading,
 });
 export const loadSuccess = (payload: SettingsPayload) => ({
   type: SettingsActionTypes.loadSuccess,
-  payload
+  payload,
 });
 export const loadFailure = (error: Error) => ({
   type: SettingsActionTypes.loadFailure,
-  error
+  error,
 });
 
 export const updating = () => ({
-  type: SettingsActionTypes.updating
+  type: SettingsActionTypes.updating,
 });
 export const updateSuccess = (payload: SettingsPayload) => ({
   type: SettingsActionTypes.updateSuccess,
-  payload
+  payload,
 });
 export const updateFailure = (error: Error) => ({
   type: SettingsActionTypes.updateFailure,
-  error
+  error,
 });

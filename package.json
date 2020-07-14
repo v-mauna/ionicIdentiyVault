@@ -54,13 +54,10 @@
   },
   "devDependencies": {
     "@capacitor/cli": "~2.0.2",
+    "@ionic/prettier-config": "^1.0.0",
     "@types/react-redux": "~7.1.7",
     "@types/redux-logger": "~3.0.7",
     "redux-devtools": "~3.5.0"
   },
-  "prettier": {
-    "trailingComma": "none",
-    "printWidth": 120,
-    "singleQuote": true
-  }
+  "prettier": "@ionic/prettier-config"
 }

@@ -22,7 +22,7 @@ export enum AuthStatus {
   Uninitialized,
   LoggedIn,
   LoggedOut,
-  Invalid
+  Invalid,
 }
 
 export enum AuthActionTypes {
@@ -48,73 +48,73 @@ export enum AuthActionTypes {
   setApplicationPIN = '[Identity API] set application pin',
   unlockApplicationWithPIN = '[Identity API] unlock with pin',
   enterPIN = '[PIN Editor] enter pin',
-  cancelPIN = '[PIN Editor] cancel pin entry'
+  cancelPIN = '[PIN Editor] cancel pin entry',
 }
 
 export const loading = () => ({
-  type: AuthActionTypes.loading
+  type: AuthActionTypes.loading,
 });
 export const loadSuccess = (payload: SessionPayload) => ({
   type: AuthActionTypes.loadSuccess,
-  payload
+  payload,
 });
 export const loadAuthModeSuccess = (payload: AuthModePayload) => ({
   type: AuthActionTypes.loadAuthModeSuccess,
-  payload
+  payload,
 });
 
 export const loggingIn = () => ({
-  type: AuthActionTypes.loggingIn
+  type: AuthActionTypes.loggingIn,
 });
 export const loginSuccess = (payload: LoginPayload) => ({
   type: AuthActionTypes.loginSuccess,
-  payload
+  payload,
 });
 export const loginFailure = (error: Error) => ({
   type: AuthActionTypes.loginFailure,
-  error
+  error,
 });
 
 export const loggingOut = () => ({
-  type: AuthActionTypes.loggingOut
+  type: AuthActionTypes.loggingOut,
 });
 export const logoutSuccess = () => ({
-  type: AuthActionTypes.logoutSuccess
+  type: AuthActionTypes.logoutSuccess,
 });
 export const logoutFailure = (error: Error) => ({
   type: AuthActionTypes.logoutFailure,
-  error
+  error,
 });
 
 export const unauthorized = () => ({
-  type: AuthActionTypes.unauthorized
+  type: AuthActionTypes.unauthorized,
 });
 
 export const sessionSet = (payload: SessionPayload) => ({
   type: AuthActionTypes.sessionSet,
-  payload
+  payload,
 });
 export const sessionCleared = () => ({
-  type: AuthActionTypes.sessionCleared
+  type: AuthActionTypes.sessionCleared,
 });
 
 export const lock = () => ({
-  type: AuthActionTypes.lock
+  type: AuthActionTypes.lock,
 });
 
 export const setApplicationPIN = () => ({
-  type: AuthActionTypes.setApplicationPIN
+  type: AuthActionTypes.setApplicationPIN,
 });
 
 export const unlockApplicationWithPIN = () => ({
-  type: AuthActionTypes.unlockApplicationWithPIN
+  type: AuthActionTypes.unlockApplicationWithPIN,
 });
 
 export const enterPIN = (payload: PINPayload) => ({
   type: AuthActionTypes.enterPIN,
-  payload
+  payload,
 });
 
 export const cancelPIN = () => ({
-  type: AuthActionTypes.cancelPIN
+  type: AuthActionTypes.cancelPIN,
 });

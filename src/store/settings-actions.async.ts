@@ -1,5 +1,11 @@
 import { settings } from '../services/settings.service';
-import { loading, loadSuccess,  SettingsPayload, updating, updateSuccess } from './settings-actions';
+import {
+  loading,
+  loadSuccess,
+  SettingsPayload,
+  updating,
+  updateSuccess,
+} from './settings-actions';
 
 export const load = () => {
   return async (dispatch: any) => {
@@ -7,7 +13,9 @@ export const load = () => {
     const authMode = await settings.getAuthMode();
     const biometricsAvailable = true;
     const biometricType = 'touchID';
-    return dispatch(loadSuccess({ authMode, biometricsAvailable, biometricType }));
+    return dispatch(
+      loadSuccess({ authMode, biometricsAvailable, biometricType }),
+    );
   };
 };
 

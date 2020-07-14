@@ -7,14 +7,24 @@ import { TeaCategory } from '../models';
 
 const loggerMiddleware = createLogger();
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
+export const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware),
+);
 
-export const getTeaCategories = (state: CombinedState<{ teaCategories: any }>) => {
+export const getTeaCategories = (
+  state: CombinedState<{ teaCategories: any }>,
+) => {
   return state.teaCategories.categories;
 };
 
-export const getTeaCategory = (state: CombinedState<{ teaCategories: any }>, id: number) => {
-  return state.teaCategories.categories.find((cat: TeaCategory) => cat.id === id);
+export const getTeaCategory = (
+  state: CombinedState<{ teaCategories: any }>,
+  id: number,
+) => {
+  return state.teaCategories.categories.find(
+    (cat: TeaCategory) => cat.id === id,
+  );
 };
 
 export const getAuthMode = (state: CombinedState<{ settings: any }>) => {
@@ -45,7 +55,9 @@ export const getShowPinDialog = (state: CombinedState<{ auth: any }>) => {
   return state.auth.showPinDialog;
 };
 
-export const getIsSetApplicationPinMode = (state: CombinedState<{ auth: any }>) => {
+export const getIsSetApplicationPinMode = (
+  state: CombinedState<{ auth: any }>,
+) => {
   return state.auth.setApplicationPin;
 };
 

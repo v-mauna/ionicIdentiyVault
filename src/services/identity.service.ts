@@ -5,13 +5,17 @@ import {
   VaultErrorCodes,
   VaultError,
   VaultConfig,
-  IonicNativeAuthPlugin
+  IonicNativeAuthPlugin,
 } from '@ionic-enterprise/identity-vault';
 import { isPlatform } from '@ionic/react';
 import { settings } from './settings.service';
 import { browserAuthPlugin } from './browser-auth.plugin';
 import { store, getShowPinDialog, getEnteredPIN } from '../store';
-import { unauthorized, setApplicationPIN, unlockApplicationWithPIN } from '../store/auth-actions';
+import {
+  unauthorized,
+  setApplicationPIN,
+  unlockApplicationWithPIN,
+} from '../store/auth-actions';
 
 export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
   private email: string | undefined;
@@ -29,8 +33,8 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
         lockAfter: 5000,
         hideScreenOnBackground: true,
         allowSystemPinFallback: true,
-        shouldClearVaultAfterTooManyFailedAttempts: false
-      }
+        shouldClearVaultAfterTooManyFailedAttempts: false,
+      },
     );
   }
 
@@ -101,14 +105,14 @@ export class IdentityService extends IonicIdentityVaultUser<DefaultSession> {
       // eslint-disable-next-line no-throw-literal
       throw {
         code: VaultErrorCodes.UserCanceledInteraction,
-        message: 'User has canceled supplying the application passcode'
+        message: 'User has canceled supplying the application passcode',
       };
     }
     return pin;
   }
 
   private waitForPasscode(): Promise<string> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const unsub = store.subscribe(() => {
         const state = store.getState();
         if (!getShowPinDialog(state)) {
