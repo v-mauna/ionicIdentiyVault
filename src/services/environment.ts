@@ -1,3 +1,5 @@
 export const environment = {
-  dataService: 'https://cs-demo-api.herokuapp.com',
-};
+  dataService: 'https://dev.medanswering.com/mtm.taf?testrig=1',
+  ionicService: 'https://cs-demo-api.herokuapp.com',
+  };
+

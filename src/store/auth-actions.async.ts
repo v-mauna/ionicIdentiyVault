@@ -12,11 +12,14 @@ import {
   sessionCleared,
   sessionSet,
   lock,
-} from './auth-actions';
+  } from './auth-actions';
 
 export interface AuthPayload {
   email: string;
   password: string;
+  recaptcha: string;
+  call: string;
+  version: string
 }
 
 export const load = () => {
@@ -43,8 +46,9 @@ const loadAuthMode = () => {
 export const login = (payload: AuthPayload) => {
   return async (dispatch: any) => {
     dispatch(loggingIn());
-    const res = await authentication.login(payload.email, payload.password);
+    const res = await authentication.login(payload.email, payload.password, payload.recaptcha, payload.call, payload.version);
     if (res.success) {
+      // user! === User cannot be null or undefined
       await identity.login({ username: res.user!.email, token: res.token! });
       dispatch(sessionSet({ email: res.user!.email }));
     }

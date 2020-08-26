@@ -7,7 +7,7 @@ import { identity } from './identity.service';
 export class TeaCategoriesAPI {
   async all(): Promise<Array<TeaCategory>> {
     let opt = await this.addHeaders({});
-    const res = await fetch(`${environment.dataService}/tea-categories`, opt);
+    const res = await fetch(`${environment.ionicService}/tea-categories`, opt);
     this.checkStatus(res);
     return res.ok ? await res.json() : [];
   }
@@ -18,7 +18,7 @@ export class TeaCategoriesAPI {
       body: JSON.stringify(category),
     });
     const res = await fetch(
-      `${environment.dataService}/tea-categories/${category.id}`,
+      `${environment.ionicService}/tea-categories/${category.id}`,
       opt,
     );
     this.checkStatus(res);

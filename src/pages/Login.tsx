@@ -36,7 +36,10 @@ const Login: React.FC = () => {
   });
 
   const handleSignIn = () => {
-    store.dispatch<any>(login({ email, password }));
+    const recaptcha:string = 'fakeValue',
+          call:string = 'login',
+          version:string = '1';
+    store.dispatch<any>(login({ email, password, recaptcha, call, version }));
     setPassword('');
     setEmail('');
   };
@@ -53,7 +56,7 @@ const Login: React.FC = () => {
       <IonContent className="ion-padding">
         <IonList>
           <IonItem>
-            <IonLabel position="floating">E-Mail Address</IonLabel>
+            <IonLabel position="floating">Username</IonLabel>
             <IonInput value={email} onIonChange={handleEmailChange}></IonInput>
           </IonItem>
           <IonItem>
